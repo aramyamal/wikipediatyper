@@ -1,0 +1,80 @@
+:root {
+    --font-size-text: 1.1rem;
+    --font-size-logo: 3rem;
+    --font-size-stats: 2rem;
+    --font-size-stats-small: 1rem;
+    --font-size-typing: 4rem;
+
+    --global-background-color: 28, 28, 26;
+    --global-background-color2: 44, 44, 44;
+    --global-font-color: 248, 234, 208;
+    --global-red: 204, 36, 29;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --global-background-color2: 233, 233, 233;
+        --global-background-color: 255, 255, 255;
+        --global-font-color: 32, 33, 34;
+        --global-red: 251, 73, 52;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: linear-gradient(to right, rgba(var(--global-background-color)), rgba(var(--global-background-color2)));
+}
+
+.form-select,
+.form-control,
+.btn {
+    font-family: "Linux Libertine";
+}
+
+h1 {
+    font-size: var(--font-size-logo);
+    font-family: "Linux Libertine";
+    color: rgba(var(--global-font-color));
+}
+
+.stats,
+.stats-small {
+    font-family: "DM Sans";
+    color: rgba(var(--global-font-color));
+    font-weight: bold;
+}
+
+.stats {
+    font-size: var(--font-size-stats);
+}
+
+.stats-small {
+    font-size: var(--font-size-stats-small);
+}
+
+.opacity-hover:hover {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.typing-correct,
+.typing-wrong,
+.typing-pending {
+    font-family: "Linux Libertine";
+    font-size: var(--font-size-typing);
+}
+
+.typing-correct {
+    color: rgba(var(--global-font-color), 0.9);
+}
+
+.typing-pending {
+    color: rgba(var(--global-font-color), 0.5);
+}
+
+.typing-wrong {
+    color: rgba(var(--global-red));
+}

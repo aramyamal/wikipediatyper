@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WikipediaTyper</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="fonts/fonts.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+</head>
+
+<body>
+    <div class="container py-3">
+        <div class="row">
+            <div class="col">
+                <h1 class="d-inline-block me-3">WikipediaTyper</h1>
+                <a class="icon-link icon-link-hover opacity-hover"
+                    style="--bs-icon-link-transform: translate3d(0, -.25rem, 0);" href="#">
+                    <i class="bi bi-shuffle" style="font-size: 1.25rem; color: var(--global-font-color);"></i>
+                </a>
+            </div>
+            <div class="col">
+                <div class="row g-2 my-3">
+                    <div class="col-md-9">
+                        <div class="row g-2">
+                            <div class="col-md-8">
+                                <input type="text" id="searchInput" class="form-control"
+                                    placeholder="Search for article..." aria-label="Article to type"
+                                    oninput="searchWikipedia()">
+                            </div>
+                            <div class="col-md-4">
+                                <select id="languageSelect" class="form-select" aria-label="Wikipedia language">
+                                    <option value="en" selected>English</option>
+                                    <option value="ar">عربي</option>
+                                    <option value="de">Deutsch</option>
+                                    <option value="sv">Swedish</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-outline-secondary w-100" type="button" id="button-addon2">Type
+                            article</button>
+                    </div>
+                    <div id="searchResults" class="list-group mt-2 w-100"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <p class="stats">
+                        <span>83 wpm</span>
+                        <small class="text-muted ms-2">(avg.)</small>
+                    </p>
+                    <p class="stats-small">
+                        <span>90 wpm</span>
+                        <small class="text-muted ms-2">(15s)</small>
+                    </p>
+                </div>
+                <div class="col text-center">
+                    <p class="stats">
+                        <span>97.3% acc</span>
+                        <small class="text-muted ms-2">(avg.)</small>
+                    </p>
+                    <p class="stats-small">
+                        <span>98.5% acc</span>
+                        <small class="text-muted ms-2">(15s)</small>
+                    </p>
+                </div>
+            </div>
+            <!-- <div class="row"> -->
+            <!--     <div class="col text-center"> -->
+            <!--         <p class="stats-small"> -->
+            <!--             <span>120 wpm</span> -->
+            <!--             <small class="text-muted ms-2">world highscore by <em>mangokalsong</em></small> -->
+            <!--         </p> -->
+            <!--     </div> -->
+            <!-- </div> -->
+        </div>
+        <div class="row" style="margin-right: -15vw; margin-left: -15vw">
+            <p class="typing-correct"> <b> Jianwen Emp<span class="typing-wrong">er</span>or </b> <i
+                    class="bi bi-arrow-90deg-right small text-muted"></i> </p>
+            <p class="typing-correct"> The Jianwen Emperor (5 December 1377 – ?), personal name Zhu Yunwen, also
+                known by his tem<span class="typing-wrong">ple</span> na<span class="typing-pending">me as the
+                    Emperor
+                    Huizong of Ming and by his posthumous name as the Emperor Hui of Ming, was the second emperor of
+                    the Ming dynasty, reigning from 1398 to 1402.</span> <i
+                    class="bi bi-arrow-90deg-right small text-muted"></i>
+            <p>
+
+            <p class="typing-pending">
+                As emperor, he surrounded himself with Confucian-educated officials who immediately began revising the
+                Hongwu Emperor's reforms, and the most significant change was the attempt to limit or eliminate the
+                princes, who were the sons of the Hongwu Emperor and had been the main support of the previous
+                government. </p>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+
+        <script>
+            async function searchWikipedia() {
+                const input = document.getElementById('searchInput');
+                const languageSelect = document.getElementById('languageSelect');
+                const resultsDiv = document.getElementById('searchResults');
+
+                if (input.value.length < 3) {
+                    resultsDiv.innerHTML = '';
+                    return;
+                }
+
+                const lang = languageSelect.value;
+                const response = await fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srsearch=${input.value}`);
+                const data = await response.json();
+
+                resultsDiv.innerHTML = data.query.search.slice(0, 5).map(result => `
+        <a href="#" class="list-group-item list-group-item-action">
+            <h6 class="mb-1">${result.title}</h6>
+            <p class="mb-1">${result.snippet}...</p>
+        </a>
+    `).join('');
+            }
+        </script>
+</body>
+
+</html>
