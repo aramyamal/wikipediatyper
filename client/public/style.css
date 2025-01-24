@@ -4,11 +4,10 @@
     --font-size-stats: 2rem;
     --font-size-stats-small: 1rem;
     --font-size-typing: 4rem;
-
     --global-background-color: 38, 38, 38;
     --global-background-color2: 44, 44, 44;
     --global-font-color: 248, 234, 208;
-    --global-red: 204, 89, 85;
+    --global-red: 204, 89, 85
 }
 
 @media (prefers-color-scheme: light) {
@@ -16,212 +15,240 @@
         --global-background-color2: 233, 233, 233;
         --global-background-color: 255, 255, 255;
         --global-font-color: 32, 33, 34;
-        --global-red: 232, 83, 62;
+        --global-red: 232, 83, 62
     }
 }
 
 html {
     scroll-behavior: smooth;
-    background-image: linear-gradient(to right, rgba(var(--global-background-color)), rgba(var(--global-background-color2)));
+    background-image: linear-gradient(to right, rgba(var(--global-background-color)), rgba(var(--global-background-color2)))
 }
 
 body {
     background-image: linear-gradient(to right, rgba(var(--global-background-color)), rgba(var(--global-background-color2)));
-    overflow: hidden;
+    overflow: hidden
 }
 
 p {
     font-family: "DM Sans";
-    font-size: var(--font-size-text);
+    font-size: var(--font-size-text)
 }
 
 .dropdown-item p {
     font-family: "DM Sans";
     font-size: var(--font-size-text);
-    color: rgba(var(--global-font-color), 0.8);
+    color: rgba(var(--global-font-color), 0.8)
 }
 
 .dropdown-item h6 {
     font-family: "Linux Libertine";
-    font-size: calc(var(--font-size-text) * 1.4);
+    font-size: calc(var(--font-size-text) * 1.4)
+}
+
+.dropdown-item {
+    color: rgba(var(--global-font-color), 0.9) !important
+}
+
+#searchInput::placeholder {
+    color: rgba(var(--global-font-color), 0.5) !important;
+    opacity: 1 !important
+}
+
+#searchInput::-moz-placeholder {
+    color: rgba(var(--global-font-color), 0.5) !important;
+    opacity: 1 !important
+}
+
+#searchInput::-webkit-input-placeholder {
+    color: rgba(var(--global-font-color), 0.5) !important
+}
+
+#searchInput,
+#searchInput:focus,
+#searchInput:not(:placeholder-shown) {
+    background-color: rgba(var(--global-background-color)) !important;
+    border: none !important
+}
+
+#searchInput,
+#searchInput:focus {
+    color: rgba(var(--global-font-color), 0.9) !important
+}
+
+#languageSelect {
+    background-color: transparent !important;
+    color: rgba(var(--global-font-color), 0.9) !important;
+    border: rgba(var(--global-background-color)) !important
 }
 
 #searchResults {
     background-color: rgba(var(--global-background-color), 0.8);
     backdrop-filter: blur(15px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px #0006;
     border-radius: 10px;
     opacity: 0;
     transform: scale(0.95);
-    transition: opacity 0.3s ease, transform 0.3s ease !important;
+    transition: opacity .3s ease, transform .3s ease !important;
     position: absolute;
     top: 100%;
     width: 100%;
     display: none;
     will-change: transform, opacity;
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-    visibility: hidden;
+    transition: opacity .3s ease, transform .3s ease, visibility .3s ease;
+    visibility: hidden
 }
-
 
 #searchResults.show {
     display: block !important;
     opacity: 1;
     transform: scale(1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 10px 30px #0006 !important;
     visibility: visible;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity .3s ease, transform .3s ease
 }
 
 #searchResults.closing {
     opacity: 0 !important;
-    transform: scale(0.95) !important;
+    transform: scale(0.95) !important
 }
 
 #searchResults .dropdown-item {
     background-color: transparent;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition: background-color .2s ease, transform .2s ease;
     border-radius: 10px;
     padding: 0 20px;
-    transition: all 0.2s ease !important;
+    transition: all .2s ease !important
 }
 
 #searchResults .dropdown-item:hover {
     background-color: rgba(var(--global-background-color2), 1);
-    transform: scale(1.05);
+    transform: scale(1.05)
 }
 
 #searchResults.animate {
-    animation: fadeIn 0.3s ease-out forwards;
+    animation: fadeIn .3s ease-out forwards
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.9)
     }
 
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1)
     }
 }
 
 #searchResults.animate {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn .3s ease-out
 }
 
 #languageSelect+.dropdown-menu {
     background-color: rgba(var(--global-background-color), 0.5) !important;
     backdrop-filter: blur(15px) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 10px 30px #0006 !important;
     border-radius: 10px !important;
     border: none !important;
-    margin-top: 0.5rem !important;
+    margin-top: .5rem !important
 }
 
 #languageSelect+.dropdown-menu .dropdown-item {
     background-color: transparent;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition: background-color .2s ease, transform .2s ease;
     border-radius: 5px;
-    padding: 0 20px;
+    padding: 0 20px
 }
 
 #languageSelect+.dropdown-menu .dropdown-item:hover {
     background-color: rgba(var(--global-background-color2), 1) !important;
-    transform: scale(1.05);
+    transform: scale(1.05)
 }
 
 #languageSelect {
     background-color: rgba(var(--global-background-color), 1) !important;
     backdrop-filter: initial !important;
-    box-shadow: initial !important;
+    box-shadow: initial !important
 }
 
-/* fix z-index for overlaying language select and article search */
 #languageSelect+.dropdown-menu {
-    z-index: 10000 !important;
-    /* higher than search results' 9999 */
+    z-index: 10000 !important
 }
 
-/* fix z-index for overlaying language select and article search */
 #searchResults {
-    z-index: 9999;
+    z-index: 9999
 }
 
-/* fix z-index for overlaying language select and article search */
 .position-relative.dropdown {
-    z-index: 10001;
+    z-index: 10001
 }
 
 .form-select,
 .form-control {
     font-family: "DM Sans";
-    background: rgba(var(--global-background-color));
+    background: rgba(var(--global-background-color))
 }
 
 h1 {
     font-size: var(--font-size-logo);
     font-family: "Linux Libertine";
-    color: rgba(var(--global-font-color));
+    color: rgba(var(--global-font-color))
 }
 
 .stats,
 .stats-small {
     font-family: "DM Sans";
     color: rgba(var(--global-font-color));
-    font-weight: bold;
+    font-weight: 700
 }
 
 .stats {
-    font-size: var(--font-size-stats);
+    font-size: var(--font-size-stats)
 }
 
 .stats-small {
-    font-size: var(--font-size-stats-small);
+    font-size: var(--font-size-stats-small)
 }
 
 .opacity-hover:hover {
-    opacity: 0.5;
-    transition: opacity 0.3s;
+    opacity: .5;
+    transition: opacity .3s
 }
 
 .typing-correct,
 .typing-wrong,
 .typing-pending {
     font-family: "Linux Libertine";
-    font-size: var(--font-size-typing);
+    font-size: var(--font-size-typing)
 }
 
-.typing-correct {
-    color: rgba(var(--global-font-color), 0.9);
+.typing-correct,
+a,
+p {
+    color: rgba(var(--global-font-color), 0.9) !important
 }
 
-.typing-pending {
-    color: rgba(var(--global-font-color), 0.5);
+.typing-pending,
+.muted-font {
+    color: rgba(var(--global-font-color), 0.5) !important
 }
 
 .typing-wrong {
-    color: rgba(var(--global-red));
+    color: rgba(var(--global-red)) !important
 }
 
 .blinking-cursor {
     border-right: 3px solid rgba(var(--global-font-color), 0.5);
-    animation: blink 0.7s step-end infinite alternate;
+    animation: blink .7s step-end infinite alternate
 }
 
 @keyframes blink {
     50% {
-        border-color: transparent;
+        border-color: transparent
     }
 }
 
 .row.g-2 {
-    /* rename to somehting else and add this class to the row g2 div */
-    /* this is so that the dropdown results overlay instead of pushing things away */
-    position: relative;
-}
-
-.glass {
-    backdrop-filter: blur(10px);
+    position: relative
 }

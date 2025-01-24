@@ -30,7 +30,7 @@ async function searchWikipedia() {
             <a href="https://${lang}.wikipedia.org/wiki/${encodeURIComponent(result.title)}" 
                target="_blank" 
                class="dropdown-item w-100 py-3">
-                <h6 class="mb-1 dropdown-header">${result.title}</h6>
+                <h6 class="mb-1 dropdown-header text-wrap">${result.title}</h6>
                 <p class="mb-1 text-wrap">${result.snippet}...</p>
             </a>
         `).join('');
@@ -79,10 +79,10 @@ document.addEventListener('click', function(event) {
     const searchResults = document.getElementById('searchResults');
 
     if (shouldCloseResults(event)) {
-        // Trigger closing animation
+        // trigger closing animation
         searchResults.classList.add('closing');
 
-        // Wait for animation to finish before hiding
+        // wait for animation to finish before hiding
         searchResults.addEventListener('transitionend', function handler() {
             searchResults.classList.remove('show', 'closing');
             searchResults.removeEventListener('transitionend', handler);
