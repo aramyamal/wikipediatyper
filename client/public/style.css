@@ -133,7 +133,7 @@ p {
 }
 
 #languageSelect {
-    background-color: initial !important;
+    background-color: rgba(var(--global-background-color), 1) !important;
     backdrop-filter: initial !important;
     box-shadow: initial !important;
 }
