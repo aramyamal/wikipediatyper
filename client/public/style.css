@@ -7,7 +7,9 @@
     --global-background-color: 38, 38, 38;
     --global-background-color2: 44, 44, 44;
     --global-font-color: 248, 234, 208;
-    --global-red: 204, 89, 85
+    --global-red: 204, 89, 85;
+
+    --transition-duration: 0.3s;
 }
 
 @media (prefers-color-scheme: light) {
@@ -21,11 +23,11 @@
 
 html {
     scroll-behavior: smooth;
-    background-image: linear-gradient(to right, rgba(var(--global-background-color)), rgba(var(--global-background-color2)))
 }
 
 body {
-    background-image: linear-gradient(to right, rgba(var(--global-background-color)), rgba(var(--global-background-color2)));
+    font-family: "DM Sans", sans-serif;
+    background: linear-gradient(to right, rgba(var(--global-background-color)), rgba(var(--global-background-color2)));
     overflow: hidden
 }
 
@@ -76,7 +78,7 @@ p {
 
 .opacity-hover:hover {
     opacity: .5;
-    transition: opacity .3s
+    transition: opacity var(--transition-duration);
 }
 
 .typing-correct,
@@ -129,7 +131,8 @@ p {
 #searchResults {
     background-color: rgba(var(--global-background-color), 0.7);
     backdrop-filter: blur(15px);
-    transition: opacity .3s ease, transform .3s ease;
+    transition: opacity var(--transition-duration) ease,
+        transform var(--transition-duration) ease;
     top: 100%;
     display: none;
 }
@@ -152,7 +155,8 @@ p {
 }
 
 .dropdown-item {
-    transition: background-color .2s ease, transform .2s ease;
+    transition: background-color var(--transition-duration) ease,
+        transform var(--transition-duration) ease;
     padding: 0 20px;
 }
 
