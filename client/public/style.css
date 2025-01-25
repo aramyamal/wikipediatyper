@@ -41,8 +41,66 @@ p {
 }
 
 a {
-    color: var(--global-font-color);
+    font-family: "DM Sans", sans-serif;
 }
+
+.typing-correct,
+a,
+p {
+    color: rgba(var(--global-font-color), 0.9)
+}
+
+.typing-pending,
+.muted-font {
+    color: rgba(var(--global-font-color), 0.5)
+}
+
+.typing-wrong {
+    color: rgba(var(--global-red))
+}
+
+.stats,
+.stats-small {
+    font-family: "DM Sans", sans-serif;
+    color: rgba(var(--global-font-color));
+    font-weight: 700
+}
+
+.stats {
+    font-size: var(--font-size-stats)
+}
+
+.stats-small {
+    font-size: var(--font-size-stats-small)
+}
+
+.opacity-hover:hover {
+    opacity: .5;
+    transition: opacity .3s
+}
+
+.typing-correct,
+.typing-wrong,
+.typing-pending {
+    font-family: "Linux Libertine", sans-serif;
+    font-size: var(--font-size-typing)
+}
+
+
+.blinking-cursor {
+    border-right: 3px solid rgba(var(--global-font-color), 0.5);
+    animation: blink .7s step-end infinite alternate
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent
+    }
+}
+
+/* ##########################
+ * search and language select 
+ * ##########################*/
 
 .dropdown-item p {
     color: rgba(var(--global-font-color), 0.8)
@@ -99,7 +157,7 @@ a {
 }
 
 .dropdown-item:hover {
-    color:rgba(var(--global-font-color), 1);
+    color: rgba(var(--global-font-color), 1);
     background-color: rgba(var(--global-background-color2), 1);
     transform: scale(1.05)
 }
@@ -125,57 +183,4 @@ a {
 
 .position-relative.dropdown {
     z-index: 10001
-}
-
-.stats,
-.stats-small {
-    font-family: "DM Sans", sans-serif;
-    color: rgba(var(--global-font-color));
-    font-weight: 700
-}
-
-.stats {
-    font-size: var(--font-size-stats)
-}
-
-.stats-small {
-    font-size: var(--font-size-stats-small)
-}
-
-.opacity-hover:hover {
-    opacity: .5;
-    transition: opacity .3s
-}
-
-.typing-correct,
-.typing-wrong,
-.typing-pending {
-    font-family: "Linux Libertine", sans-serif;
-    font-size: var(--font-size-typing)
-}
-
-.typing-correct,
-a,
-p {
-    color: rgba(var(--global-font-color), 0.9)
-}
-
-.typing-pending,
-.muted-font {
-    color: rgba(var(--global-font-color), 0.5)
-}
-
-.typing-wrong {
-    color: rgba(var(--global-red))
-}
-
-.blinking-cursor {
-    border-right: 3px solid rgba(var(--global-font-color), 0.5);
-    animation: blink .7s step-end infinite alternate
-}
-
-@keyframes blink {
-    50% {
-        border-color: transparent
-    }
 }
