@@ -34,6 +34,10 @@ p {
     font-size: var(--font-size-text)
 }
 
+a {
+    color: var(--global-font-color);
+}
+
 .dropdown-item p {
     font-family: "DM Sans", sans-serif;
     font-size: var(--font-size-text);
