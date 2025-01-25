@@ -30,18 +30,18 @@ body {
 }
 
 p {
-    font-family: "DM Sans";
+    font-family: "DM Sans", sans-serif;
     font-size: var(--font-size-text)
 }
 
 .dropdown-item p {
-    font-family: "DM Sans";
+    font-family: "DM Sans", sans-serif;
     font-size: var(--font-size-text);
     color: rgba(var(--global-font-color), 0.8)
 }
 
 .dropdown-item h6 {
-    font-family: "Linux Libertine";
+    font-family: "Linux Libertine", sans-serif;
     font-size: calc(var(--font-size-text) * 1.4)
 }
 
@@ -186,19 +186,19 @@ p {
 
 .form-select,
 .form-control {
-    font-family: "DM Sans";
+    font-family: "DM Sans", sans-serif;
     background: rgba(var(--global-background-color))
 }
 
 h1 {
     font-size: var(--font-size-logo);
-    font-family: "Linux Libertine";
+    font-family: "Linux Libertine", sans-serif;
     color: rgba(var(--global-font-color))
 }
 
 .stats,
 .stats-small {
-    font-family: "DM Sans";
+    font-family: "DM Sans", sans-serif;
     color: rgba(var(--global-font-color));
     font-weight: 700
 }
@@ -219,7 +219,7 @@ h1 {
 .typing-correct,
 .typing-wrong,
 .typing-pending {
-    font-family: "Linux Libertine";
+    font-family: "Linux Libertine", sans-serif;
     font-size: var(--font-size-typing)
 }
 
