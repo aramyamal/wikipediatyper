@@ -54,7 +54,7 @@ a {
 }
 
 .dropdown-item {
-    color: rgba(var(--global-font-color), 0.9) !important
+    color: rgba(var(--global-font-color), 0.9) 
 }
 
 #searchInput::placeholder {
@@ -70,7 +70,7 @@ a {
 #searchResults {
     background-color: rgba(var(--global-background-color), 0.7);
     backdrop-filter: blur(15px);
-    transition: opacity .3s ease, transform .3s ease !important;
+    transition: opacity .3s ease, transform .3s ease;
     top: 100%;
     display: none;
 }
@@ -142,16 +142,16 @@ a {
 .typing-correct,
 a,
 p {
-    color: rgba(var(--global-font-color), 0.9) !important
+    color: rgba(var(--global-font-color), 0.9)
 }
 
 .typing-pending,
 .muted-font {
-    color: rgba(var(--global-font-color), 0.5) !important
+    color: rgba(var(--global-font-color), 0.5) 
 }
 
 .typing-wrong {
-    color: rgba(var(--global-red)) !important
+    color: rgba(var(--global-red))
 }
 
 .blinking-cursor {
