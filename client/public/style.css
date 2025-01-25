@@ -178,13 +178,14 @@ p {
 }
 
 #languageSelect+.dropdown-menu {
-    z-index: 10000
+    z-index: 1000
 }
 
 #searchResults {
-    z-index: 9999
+    z-index: 999
 }
 
 .position-relative.dropdown {
-    z-index: 10001
+    z-index: 1001
 }
+
