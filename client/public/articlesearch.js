@@ -29,7 +29,7 @@ async function searchWikipedia() {
         resultsDiv.innerHTML = data.query.search.slice(0, 5).map(result => `
             <a href="https://${lang}.wikipedia.org/wiki/${encodeURIComponent(result.title)}" 
                target="_blank" 
-               class="dropdown-item w-100 py-3">
+               class="dropdown-item rounded-3 w-100 py-3">
                 <h6 class="mb-1 dropdown-header text-wrap">${result.title}</h6>
                 <p class="mb-1 text-wrap">${result.snippet}...</p>
             </a>

@@ -29,6 +29,12 @@ body {
     overflow: hidden
 }
 
+h1 {
+    font-size: var(--font-size-logo);
+    font-family: "Linux Libertine", sans-serif;
+    color: rgba(var(--global-font-color))
+}
+
 p {
     font-family: "DM Sans", sans-serif;
     font-size: var(--font-size-text)
@@ -39,8 +45,6 @@ a {
 }
 
 .dropdown-item p {
-    font-family: "DM Sans", sans-serif;
-    font-size: var(--font-size-text);
     color: rgba(var(--global-font-color), 0.8)
 }
 
@@ -54,130 +58,50 @@ a {
 }
 
 #searchInput::placeholder {
-    color: rgba(var(--global-font-color), 0.5) !important;
-    opacity: 1 !important
-}
-
-#searchInput::-moz-placeholder {
-    color: rgba(var(--global-font-color), 0.5) !important;
-    opacity: 1 !important
-}
-
-#searchInput::-webkit-input-placeholder {
-    color: rgba(var(--global-font-color), 0.5) !important
-}
-
-#searchInput,
-#searchInput:focus,
-#searchInput:not(:placeholder-shown) {
-    background-color: rgba(var(--global-background-color)) !important;
-    border: none !important
+    color: rgba(var(--global-font-color), 0.5);
 }
 
 #searchInput,
 #searchInput:focus {
-    color: rgba(var(--global-font-color), 0.9) !important
-}
-
-#languageSelect {
-    background-color: transparent !important;
-    color: rgba(var(--global-font-color), 0.9) !important;
-    border: rgba(var(--global-background-color)) !important
+    background-color: rgba(var(--global-background-color));
+    border: none;
 }
 
 #searchResults {
-    background-color: rgba(var(--global-background-color), 0.8);
+    background-color: rgba(var(--global-background-color), 0.7);
     backdrop-filter: blur(15px);
-    box-shadow: 0 10px 30px #0006;
-    border-radius: 10px;
-    opacity: 0;
-    transform: scale(0.95);
     transition: opacity .3s ease, transform .3s ease !important;
-    position: absolute;
     top: 100%;
-    width: 100%;
     display: none;
-    will-change: transform, opacity;
-    transition: opacity .3s ease, transform .3s ease, visibility .3s ease;
-    visibility: hidden
 }
 
 #searchResults.show {
-    display: block !important;
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 10px 30px #0006 !important;
-    visibility: visible;
-    transition: opacity .3s ease, transform .3s ease
+    display: block;
 }
 
 #searchResults.closing {
     opacity: 0 !important;
-    transform: scale(0.95) !important
+    transform: scale(0.95) !important;
 }
 
-#searchResults .dropdown-item {
-    background-color: transparent;
+.dropdown-item {
     transition: background-color .2s ease, transform .2s ease;
-    border-radius: 10px;
     padding: 0 20px;
-    transition: all .2s ease !important
 }
 
-#searchResults .dropdown-item:hover {
+.dropdown-item:hover {
     background-color: rgba(var(--global-background-color2), 1);
     transform: scale(1.05)
 }
 
-#searchResults.animate {
-    animation: fadeIn .3s ease-out forwards
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9)
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1)
-    }
-}
-
-#searchResults.animate {
-    animation: fadeIn .3s ease-out
+.dropdown-menu {
+    background-color: rgba(var(--global-background-color), 0.7);
+    backdrop-filter: blur(15px);
+    min-width: 100%;
 }
 
 #languageSelect+.dropdown-menu {
-    background-color: rgba(var(--global-background-color), 0.5) !important;
-    backdrop-filter: blur(15px) !important;
-    box-shadow: 0 10px 30px #0006 !important;
-    border-radius: 10px !important;
-    border: none !important;
-    margin-top: .5rem !important
-}
-
-#languageSelect+.dropdown-menu .dropdown-item {
-    background-color: transparent;
-    transition: background-color .2s ease, transform .2s ease;
-    border-radius: 5px;
-    padding: 0 20px
-}
-
-#languageSelect+.dropdown-menu .dropdown-item:hover {
-    background-color: rgba(var(--global-background-color2), 1) !important;
-    transform: scale(1.05)
-}
-
-#languageSelect {
-    background-color: rgba(var(--global-background-color), 1) !important;
-    backdrop-filter: initial !important;
-    box-shadow: initial !important
-}
-
-#languageSelect+.dropdown-menu {
-    z-index: 10000 !important
+    z-index: 10000
 }
 
 #searchResults {
@@ -186,18 +110,6 @@ a {
 
 .position-relative.dropdown {
     z-index: 10001
-}
-
-.form-select,
-.form-control {
-    font-family: "DM Sans", sans-serif;
-    background: rgba(var(--global-background-color))
-}
-
-h1 {
-    font-size: var(--font-size-logo);
-    font-family: "Linux Libertine", sans-serif;
-    color: rgba(var(--global-font-color))
 }
 
 .stats,
