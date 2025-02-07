@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import { WikipediaTyperService } from "../service/wikipediaTyper";
 
 const wikipediaTyperService = new WikipediaTyperService();
 
@@ -11,7 +12,7 @@ scraperRouter.get("/:wikipediaUrl", async (
 ) => {
     try {
         const { wikipediaUrl } = req.params;
-        let article = await wikipediaTyperService.scrape(wikipediaUrl);
+        let article: Article = await wikipediaTyperService.scrape(wikipediaUrl);
         res.status(200).send(article);
     } catch (e: any) {
         res.status(500).send(e.message);
