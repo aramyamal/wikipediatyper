@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { WikipediaTyperService } from "../service/wikipediaTyper";
+import { Article } from "../model/article.interface";
 
 const wikipediaTyperService = new WikipediaTyperService();
 
@@ -7,8 +8,7 @@ export const scraperRouter = express.Router();
 
 scraperRouter.get("/:wikipediaUrl", async (
     req: Request<{ wikipediaUrl: string }>,
-    // res: Response<Article | string>
-    res: Response
+    res: Response<Article | string>
 ) => {
     try {
         const { wikipediaUrl } = req.params;
