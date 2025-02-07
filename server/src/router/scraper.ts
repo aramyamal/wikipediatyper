@@ -4,9 +4,9 @@ import { Article } from "../model/article.interface";
 
 const wikipediaTyperService = new WikipediaTyperService();
 
-export const scraperRouter = express.Router();
+export const wikipediaTyperRouter = express.Router();
 
-scraperRouter.get("/:wikipediaUrl", async (
+wikipediaTyperRouter.get("/:wikipediaUrl", async (
     req: Request<{ wikipediaUrl: string }>,
     res: Response<Article | string>
 ) => {
