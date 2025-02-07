@@ -1,5 +1,5 @@
 import express from "express";
-import { wikipediaTyperRouter } from "./router/scraper";
+import { wikipediaTyperRouter } from "./router/wikipediaTyper";
 
 export const app = express();
 
