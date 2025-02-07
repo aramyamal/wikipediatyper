@@ -6,13 +6,17 @@ const wikipediaTyperService = new WikipediaTyperService();
 
 export const wikipediaTyperRouter = express.Router();
 
-wikipediaTyperRouter.get("/:wikipediaUrl", async (
-    req: Request<{ wikipediaUrl: string }>,
+wikipediaTyperRouter.get("/:wikipediaURL(*)", async (
+    req: Request<{ wikipediaURL: string }>,
     res: Response<Article | string>
 ) => {
     try {
-        const { wikipediaUrl } = req.params;
-        let article: Article = await wikipediaTyperService.scrape(wikipediaUrl);
+        const { wikipediaURL } = req.params;
+        if (/^https?:\/\//.test(wikipediaURL)) { //redirect to url without https
+            res.status(301).redirect(wikipediaURL.replace(/https:\/\//, "/"));;
+            return;
+        }
+        let article: Article = await wikipediaTyperService.scrape(wikipediaURL);
         res.status(200).send(article);
     } catch (e: any) {
         res.status(500).send(e.message);

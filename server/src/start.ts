@@ -1,8 +1,8 @@
 import express from "express";
-import { scraperRouter } from "./router/scraper";
+import { wikipediaTyperRouter } from "./router/scraper";
 
 export const app = express();
 
 app.use(express.json());
-app.use("/", scraperRouter);
+app.use("/", wikipediaTyperRouter);
 
