@@ -1,5 +1,6 @@
 import { Article } from "../model/article.interface";
 import { WikiResponse } from "../model/wikiresponse.interface";
+import { HttpError } from "../errors/http_error";
 import axios from "axios";
 
 export class WikipediaTyperService {
@@ -11,17 +12,17 @@ export class WikipediaTyperService {
     async scrape(url: string)/* : Promise<Article> */ {
 
         if (!url) {
-            throw new Error("No url provided.");
+            throw new HttpError(400, "No article URL provided.")
         }
 
         const language: string | undefined = url.match(/^[a-zA-Z]*/)?.[0];
         if (!language) {
-            throw new Error("Incorrect url format: no language code.");
+            throw new HttpError(400, "Incorrect url format: no language code.");
         }
 
         const title: string | undefined = url.match(/\/wiki\/([^#?]+)/)?.[1];
         if (!title) {
-            throw new Error("Incorrect url format: no title.");
+            throw new HttpError(400, "Incorrect url format: no title provided.");
         }
 
         const { data } = await axios.get<WikiResponse>(this.getWikiApi(language), {
@@ -39,7 +40,7 @@ export class WikipediaTyperService {
         const page = data.query.pages[0];
 
         if (page.missing || !page.extract) {
-            throw new Error("Article does not exist.")
+            throw new HttpError(404, "Article not found");
         }
 
         return page;
