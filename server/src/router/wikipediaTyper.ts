@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import { HttpError } from "../errors/http_error";
 import { WikipediaTyperService } from "../service/wikipediaTyper";
 import { Article } from "../model/article.interface";
 
@@ -18,8 +19,14 @@ wikipediaTyperRouter.get("/:wikipediaURL(*)", async (
         }
         let article: Article = await wikipediaTyperService.scrape(wikipediaURL);
         res.status(200).send(article);
-    } catch (e: any) {
-        res.status(500).send(e.message);
+    } catch (error: any) {
+        if (error instanceof HttpError) {
+            res.status(error.statusCode).send(error.message);
+        } else if (error instanceof Error) {
+            res.status(500).send(error.message);
+        } else {
+            res.status(500).send("Unknown error occurred");
+        }
     }
 });
 
