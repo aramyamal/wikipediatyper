@@ -1,3 +1,6 @@
+import { ArticleSegment } from "./article_segment.interface";
+
 export interface Article {
-    title: string
+    title: string,
+    segments: ArticleSegment[]
 }
