@@ -1,3 +1,4 @@
+import { Article } from "../model/article.interface";
 import { WikiArticle } from "../model/wiki_article.interface";
 import { WikipediaTyperService } from "./wikipediaTyper";
 import axios from "axios";
@@ -88,4 +89,68 @@ describe("WikipediaTyperService", () => {
             }
         )
     })
+    describe("prettify", () => {
+        test("should parse headers", async () => {
+            const wikiArticle: WikiArticle = {
+                pageid: 0,
+                ns: 0,
+                title: "Test Title",
+                extract:
+                    "This is some text.\n\n\n" +
+                    "== This is a header 2 ==\n" +
+                    "And this is some more text. It continues here.\n\n\n" +
+                    "== This is header 2 again ==\n\n\n" +
+                    "=== This is header 3 ===\n\n" +
+                    "And this is the text under header 3.\n" +
+                    "==== This is header4 ====\n" +
+                    "And this is the text under header 4.\n" +
+                    "This is a new paragraph under header 4 and end of article."
+            };
+
+            const prettified: Article = {
+                title: "Test Title",
+                segments: [
+                    {
+                        type: "text",
+                        body: "This is some text."
+                    },
+                    {
+                        type: "header2",
+                        body: "This is a header 2"
+                    },
+                    {
+                        type: "text",
+                        body: "And this is some more text. It continues here."
+                    },
+                    {
+                        type: "header2",
+                        body: "This is header 2 again"
+                    },
+                    {
+                        type: "header3",
+                        body: "This is header 3"
+                    },
+                    {
+                        type: "text",
+                        body: "And this is the text under header 3."
+                    },
+                    {
+                        type: "header4",
+                        body: "This is header4"
+                    },
+                    {
+                        type: "text",
+                        body: "And this is the text under header 4."
+                    },
+                    {
+                        type: "text",
+                        body: "This is a new paragraph under header 4 " +
+                            "and end of article."
+                    }
+                ]
+            };
+            expect(await service.prettify(wikiArticle)).toEqual(prettified);
+        });
+    });
+
 })

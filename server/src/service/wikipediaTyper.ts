@@ -55,4 +55,11 @@ export class WikipediaTyperService {
 
         return page;
     }
+
+    async prettify(wikiArticle: WikiArticle): Promise<Article> {
+        return {
+            title: "test",
+            segments: []
+        };
+    }
 }
