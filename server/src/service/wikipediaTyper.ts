@@ -15,8 +15,11 @@ export class WikipediaTyperService {
             throw new HttpError(400, "No article URL provided.")
         }
 
-        const language: string | undefined = url.match(/^[a-zA-Z]*/)?.[0];
+        const language: string | undefined = url.split(".")[0];
         if (!language) {
+            throw new HttpError(400, "Incorrect url format: no language code.");
+        }
+        if (language.length > 3) {
             throw new HttpError(400, "Incorrect url format: no language code.");
         }
 
@@ -25,17 +28,23 @@ export class WikipediaTyperService {
             throw new HttpError(400, "Incorrect url format: no title provided.");
         }
 
-        const { data } = await axios.get<WikiResponse>(this.getWikiApi(language), {
-            params: {
-                action: "query",
-                prop: "extracts",
-                exlimit: 1,
-                titles: title,
-                explaintext: 1,
-                format: "json",
-                formatversion: 2
-            }
-        })
+        const { data }: { data: WikiResponse } = await axios.get<WikiResponse>(
+            this.getWikiApi(language),
+            {
+                params: {
+                    action: "query",
+                    prop: "extracts",
+                    exlimit: 1,
+                    titles: title,
+                    explaintext: 1,
+                    format: "json",
+                    formatversion: 2
+                },
+                headers: {
+                    "User-Agent": "wikipediatyper/1.0 "
+                        + "(github.com/aramyamal/wikipediatyper)"
+                }
+            })
 
         const page = data.query.pages[0];
 
