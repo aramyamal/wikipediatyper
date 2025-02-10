@@ -181,6 +181,32 @@ describe("WikipediaTyperService", () => {
             expect(await service.prettify(wikiArticle)).toEqual(expected);
 
         })
+
+        test("should remove residue reference markers", async () => {
+            const wikiArticle: WikiArticle = {
+                pageid: 0,
+                ns: 0,
+                title: "Test Residue References",
+                extract: "Text with : 847 residue : 1.1 reference markers." +
+                    ": 67-87 \nThis is more examples."
+                    + " : 102–111 : 1.1–1.8  Another sentence."
+            };
+
+            const expected = {
+                title: "Test Residue References",
+                segments: [{
+                    type: "text",
+                    body: "Text with residue reference markers."
+                },
+                {
+                    type: "text",
+                    body: "This is more examples. Another sentence."
+                }]
+            };
+
+            expect(await service.prettify(wikiArticle)).toEqual(expected);
+
+        });
     });
 
 })
