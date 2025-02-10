@@ -1,4 +1,4 @@
 export interface ArticleSegment {
-    type: "header2" | "header3" | "header4" | "text",
+    type:  `header${number}` | "text",
     body: string
 }

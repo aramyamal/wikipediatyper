@@ -3,6 +3,7 @@ import { WikiResponse } from "../model/wiki_response.interface";
 import { WikiArticle } from "../model/wiki_article.interface";
 import { HttpError } from "../errors/http_error";
 import axios from "axios";
+import { ArticleSegment } from "../model/article_segment.interface";
 
 export class WikipediaTyperService {
 
@@ -57,9 +58,38 @@ export class WikipediaTyperService {
     }
 
     async prettify(wikiArticle: WikiArticle): Promise<Article> {
+        if (wikiArticle.missing || !wikiArticle.extract) {
+            throw new HttpError(500, "Parsing empty article not allowed");
+        }
+        const rawSegments: string[] = wikiArticle.extract.split("\n")
+            .filter(segment => segment.trim().length > 0);
+
+        let articleSegments: ArticleSegment[] = [];
+
+        for (const rawSegment of rawSegments) {
+            // match headers like "== header2 ==", and "=== header3 ===" etc
+            const headerMatch: RegExpMatchArray | null = rawSegment
+                .match(/^(=+)\s*(.+?)\s*\1$/);
+
+            if (headerMatch) {
+                const level: number = headerMatch[1].length;
+                const body: string = headerMatch[2].trim();
+
+                articleSegments.push({
+                    type: `header${level}`,
+                    body: body
+                });
+            } else {
+                articleSegments.push({
+                    type: "text",
+                    body: rawSegment
+                })
+            }
+        }
+
         return {
-            title: "test",
-            segments: []
+            title: wikiArticle.title,
+            segments: articleSegments
         };
     }
 }
