@@ -82,7 +82,7 @@ export class WikipediaTyperService {
             } else {
                 articleSegments.push({
                     type: "text",
-                    body: rawSegment
+                    body: this.cleanText(rawSegment)
                 })
             }
         }
@@ -91,5 +91,26 @@ export class WikipediaTyperService {
             title: wikiArticle.title,
             segments: articleSegments
         };
+    }
+
+    private cleanText(text: string): string {
+       return this.cleanCurlyBraces(text) // remove curly braces
+       .replace(/\s{2,}/g, " ") // reduce multiple spaced to one
+       .replace(/\s\./g, "."); // replace all " ." with "."
+    }
+
+    private cleanCurlyBraces(text: string): string {
+        let depth: number = 0;
+        let result: string = "";
+        for (const char of text) {
+            if (char === '{') {
+                depth++;
+            } else if (char === '}') {
+                if (depth > 0) depth--;
+            } else if (depth === 0) {
+                result += char;
+            }
+        }
+        return result;
     }
 }
