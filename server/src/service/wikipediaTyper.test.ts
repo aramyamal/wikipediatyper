@@ -151,6 +151,7 @@ describe("WikipediaTyperService", () => {
             };
             expect(await service.prettify(wikiArticle)).toEqual(prettified);
         });
+
         test("should remove equation blocks", async () => {
             const wikiArticle: WikiArticle = {
                 pageid: 0,
@@ -168,12 +169,12 @@ describe("WikipediaTyperService", () => {
                 title: "Equation Test",
                 segments: [{
                     type: "text",
-                    body: "Start with  simple equation. " +
-                        "Then  version. " +
-                        "Nested example: . " +
-                        "Deep nesting: . " +
-                        "Mixed . " +
-                        "End with  example."
+                    body: "Start with simple equation. " +
+                        "Then version. " +
+                        "Nested example:. " +
+                        "Deep nesting:. " +
+                        "Mixed. " +
+                        "End with example."
                 }]
             };
 
