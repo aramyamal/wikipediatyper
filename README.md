@@ -3,10 +3,10 @@
 ## Current
 
 ### Backend
-- [ ] Scrape Wikipedia article from link and return as JSON
-    - [ ] Clean scraped text by removing unwritable text
-    - [ ] Convert to JSON
-        - [ ] Encode different headers and titles in JSON
+- [x] Scrape Wikipedia article from link and return as JSON
+    - [x] Clean scraped text by removing unwritable text
+    - [x] Convert to JSON
+        - [x] Encode different headers and titles in JSON
 
 ### Frontend
  - [ ] 
