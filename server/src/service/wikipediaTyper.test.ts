@@ -151,6 +151,35 @@ describe("WikipediaTyperService", () => {
             };
             expect(await service.prettify(wikiArticle)).toEqual(prettified);
         });
+        test("should remove equation blocks", async () => {
+            const wikiArticle: WikiArticle = {
+                pageid: 0,
+                ns: 0,
+                title: "Equation Test",
+                extract: "Start with {\displaystyle basic} simple equation. " +
+                    "Then {\textstyle inline} version. " +
+                    "Nested example: {\displaystyle outer{\textstyle inner}content}. " +
+                    "Deep nesting: {\textstyle a{b{c{d}}}}. " +
+                    "Mixed {\displaystyle styles{\textstyle with}nesting}. " +
+                    "End with {\textstyle final} example."
+            };
+
+            const expected: Article = {
+                title: "Equation Test",
+                segments: [{
+                    type: "text",
+                    body: "Start with  simple equation. " +
+                        "Then  version. " +
+                        "Nested example: . " +
+                        "Deep nesting: . " +
+                        "Mixed . " +
+                        "End with  example."
+                }]
+            };
+
+            expect(await service.prettify(wikiArticle)).toEqual(expected);
+
+        })
     });
 
 })
