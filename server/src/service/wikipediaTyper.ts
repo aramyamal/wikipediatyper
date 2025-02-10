@@ -94,9 +94,13 @@ export class WikipediaTyperService {
     }
 
     private cleanText(text: string): string {
-       return this.cleanCurlyBraces(text) // remove curly braces
-       .replace(/\s{2,}/g, " ") // reduce multiple spaced to one
-       .replace(/\s\./g, "."); // replace all " ." with "."
+        return this.cleanCurlyBraces(text)
+            // remove residue reference markers
+            .replace(/:\s[0-9][0-9]*((\.|-|–)[0-9]*)*\s/g, "")
+            // reduce multiple spaces to one
+            .replace(/\s{2,}/g, " ")
+            // replace all " ." with "."
+            .replace(/\s\./g, ".");
     }
 
     private cleanCurlyBraces(text: string): string {
