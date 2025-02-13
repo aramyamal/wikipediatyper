@@ -1,0 +1,79 @@
+@font-face {
+    font-family: "Linux Libertine";
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url("LinLibertine_Rah.ttf");
+}
+
+@font-face {
+    font-family: "Linux Libertine";
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url("LinLibertine_RBah.ttf");
+}
+
+@font-face {
+    font-family: "Linux Libertine";
+    font-style: italic;
+    font-weight: normal;
+    font-display: swap;
+    src: url("LinLibertine_RIah.ttf");
+}
+
+@font-face {
+    font-family: "Linux Libertine";
+    font-style: italic;
+    font-weight: bold;
+    font-display: swap;
+    src: url("LinLibertine_RBIah.ttf");
+}
+
+@font-face {
+    font-family: "Linux Libertine";
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url("LinLibertine_RZah.ttf");
+}
+
+@font-face {
+    font-family: "Linux Libertine";
+    font-style: italic;
+    font-weight: 900;
+    font-display: swap;
+    src: url("LinLibertine_RZIah.ttf");
+}
+
+@font-face {
+    font-family: "DM Sans";
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url("DMSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: "DM Sans";
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url("DMSans-Bold.ttf");
+}
+
+@font-face {
+    font-family: "DM Sans";
+    font-style: italic;
+    font-weight: normal;
+    font-display: swap;
+    src: url("DMSans-Italic-VariableFont_opsz\,wght.ttf");
+}
+
+@font-face {
+    font-family: "DM Sans";
+    font-style: italic;
+    font-weight: bold;
+    font-display: swap;
+    src: url("DMSans-BoldItalic.ttf");
+}
