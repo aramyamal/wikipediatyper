@@ -1,23 +1,26 @@
 :root {
-    /* light Theme */
-    --bs-body-color-rgb: 32, 33, 34;
     /* dark text */
-    --bs-body-bg-rgb: 255, 255, 255;
+    --bs-body-color-rgb: 32, 33, 34;
     /* white background */
+    --bs-body-bg-rgb: 255, 255, 255;
     --bs-secondary-bg-rgb: 233, 233, 233;
+
+    --bs-emphasis-color-rgb: var(--bs-body-color-rgb);
 
     --bs-body-color: rgb(var(--bs-body-color-rgb));
     --bs-body-bg: rgb(var(--bs-body-bg-rgb));
+    --bs-secondary-color: rgba(var(--bs-body-color-rgb), 0.8);
     --bs-secondary-bg: rgb(var(--bs-secondary-bg-rgb));
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bs-body-color-rgb: 248, 234, 208;
         /* light text */
-        --bs-body-bg-rgb: 38, 38, 38;
+        --bs-body-color-rgb: 248, 234, 208;
         /* dark background */
+        --bs-body-bg-rgb: 38, 38, 38;
         --bs-secondary-bg-rgb: 44, 44, 44;
+
     }
 }
 
@@ -25,4 +28,5 @@ body {
     background-image: linear-gradient(to right,
             rgb(var(--bs-body-bg-rgb)),
             rgb(var(--bs-secondary-bg-rgb))) !important;
+    font-family: "DM Sans", var(--bs-font-sans-serif);
 }

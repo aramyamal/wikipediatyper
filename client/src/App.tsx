@@ -1,12 +1,14 @@
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Col, Container, Row } from 'react-bootstrap';
+import TopBar from "./components/TopBar/TopBar";
 
-export default function App() {
+const App: React.FC = () => {
     return (
-        <>
-            <p>
-                Test
-            </p>
-        </>
+        <Container className='py-1'>
+            <TopBar />
+        </Container>
     )
 }
 
+export default App;

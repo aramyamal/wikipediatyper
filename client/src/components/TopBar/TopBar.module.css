@@ -1,0 +1,22 @@
+.brand {
+    font-family: "Linux Libertine", serif;
+    color: var(--bs-body-color);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.brand:hover {
+    opacity: 0.8;
+}
+
+.icon {
+    transition: transform 0.2s ease;
+}
+
+.icon:hover {
+    transform: translate3d(0, -.25rem, 0);
+}
+
+.short {
+    width: 150px;
+}
