@@ -1,12 +1,6 @@
 .brand {
     font-family: "Linux Libertine", serif;
-    color: var(--bs-body-color);
-    text-decoration: none;
-    transition: opacity 0.2s;
-}
-
-.brand:hover {
-    opacity: 0.8;
+    color: var(--bs-secondary-color);
 }
 
 .icon {
@@ -17,6 +11,26 @@
     transform: translate3d(0, -.25rem, 0);
 }
 
-.short {
-    width: 150px;
+.select_dropdown {
+    transition: background-color var(--transition-duration) ease,
+        transform var(--transition-duration) ease;
+    padding: 0 20px;
+}
+
+.select_dropdown:hover {
+    transform: scale(1.05)
+}
+
+.select_menu {
+    backdrop-filter: blur(15px);
+}
+
+.min_width {
+    min-width: 150px;
+}
+
+.language_select {
+    --bs-btn-active-color: var(--bs-body-color);
+    --bs-btn-color: var(--bs-secondary-color);
+    --bs-btn-hover-color: var(--bs-body-color);
 }
