@@ -13,6 +13,8 @@
     --bs-secondary-bg: rgb(var(--bs-secondary-bg-rgb));
     --bs-tertiary-color: rgba(var(--bs-body-color-rgb), 0.5);
     --bs-tertiary-bg: rgb(var(--bs-secondary-bg-rgb));
+
+    --transition-duration: 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
