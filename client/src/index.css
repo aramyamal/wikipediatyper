@@ -11,6 +11,8 @@
     --bs-body-bg: rgb(var(--bs-body-bg-rgb));
     --bs-secondary-color: rgba(var(--bs-body-color-rgb), 0.8);
     --bs-secondary-bg: rgb(var(--bs-secondary-bg-rgb));
+    --bs-tertiary-color: rgba(var(--bs-body-color-rgb), 0.5);
+    --bs-tertiary-bg: rgb(var(--bs-secondary-bg-rgb));
 }
 
 @media (prefers-color-scheme: dark) {
