@@ -7,6 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Dropdown from "react-bootstrap/Dropdown";
+import WikipediaSearch from "./WikipediaSearch";
 
 const TopBar: React.FC = () => {
 
@@ -53,16 +54,13 @@ const TopBar: React.FC = () => {
                     </Nav.Link>
                 </Nav>
                 <Form className="mx-2">
-                    <Form.Control
-                        type="search"
-                        placeholder="Search for article..."
-                        aria-label="Search"
-                        className="border-0 shadow-sm"
+                    <WikipediaSearch selectedLangCode=
+                        {languages.get(selectedLanguage) || "en"}
                     />
                 </Form>
                 <Dropdown onSelect={handleSelect}>
                     <Dropdown.Toggle className={`
-                        border-0 shadow-sm bg-body 
+                        border-0 shadow-sm bg-body my-2
                         ${classes.language_select}
                         ${classes.min_width}
                     `}>
@@ -71,7 +69,7 @@ const TopBar: React.FC = () => {
 
                     <Dropdown.Menu className={`
                         bg-transparent border-0 shadow-lg
-                        ${classes.select_menu}
+                        ${classes.blur}
                         ${classes.min_width}
                     `}>
                         {[...languages.keys()].map((name) => (

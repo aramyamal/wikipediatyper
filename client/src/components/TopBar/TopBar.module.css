@@ -21,16 +21,24 @@
     transform: scale(1.05)
 }
 
-.select_menu {
+.blur {
     backdrop-filter: blur(15px);
-}
-
-.min_width {
-    min-width: 150px;
 }
 
 .language_select {
     --bs-btn-active-color: var(--bs-body-color);
     --bs-btn-color: var(--bs-secondary-color);
     --bs-btn-hover-color: var(--bs-body-color);
+}
+
+.search_select {
+    --bs-list-group-active-color: var(--bs-tertiary-color);
+}
+
+.min_width {
+    min-width: 150px;
+}
+
+:global(.searchmatch) {
+    font-weight: bold;
 }
