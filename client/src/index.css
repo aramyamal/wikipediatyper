@@ -14,6 +14,8 @@
     --bs-tertiary-color: rgba(var(--bs-body-color-rgb), 0.5);
     --bs-tertiary-bg: rgb(var(--bs-secondary-bg-rgb));
 
+    --bs-emphasis-color: rgb(var(--bs-emphasis-color-rgb));
+
     --transition-duration: 0.3s;
 }
 
@@ -33,4 +35,8 @@ body {
             rgb(var(--bs-body-bg-rgb)),
             rgb(var(--bs-secondary-bg-rgb))) !important;
     font-family: "DM Sans", var(--bs-font-sans-serif);
+}
+
+.font-serif {
+    font-family: "Linux Libertine" serif;
 }
