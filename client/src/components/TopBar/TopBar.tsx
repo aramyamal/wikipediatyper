@@ -60,7 +60,7 @@ const TopBar: React.FC = () => {
                 </Form>
                 <Dropdown onSelect={handleSelect}>
                     <Dropdown.Toggle className={`
-                        border-0 shadow-sm bg-body my-2
+                        border-0 shadow-sm bg-body my-1
                         ${classes.language_select}
                         ${classes.min_width}
                     `}>
