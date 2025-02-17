@@ -2,12 +2,13 @@ import React from "react";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css"
-import classes from "./TopBar.module.css";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Dropdown from "react-bootstrap/Dropdown";
 import WikipediaSearch from "./WikipediaSearch";
+
+import classes from "./TopBar.module.css";
 
 const TopBar: React.FC = () => {
 
@@ -60,9 +61,10 @@ const TopBar: React.FC = () => {
                 </Form>
                 <Dropdown onSelect={handleSelect}>
                     <Dropdown.Toggle className={`
-                        border-0 shadow-sm bg-body my-1
+                        border-0 shadow-sm bg-body my-1 
                         ${classes.language_select}
                         ${classes.min_width}
+                        d-flex justify-content-between align-items-center 
                     `}>
                         {selectedLanguage}
                     </Dropdown.Toggle>

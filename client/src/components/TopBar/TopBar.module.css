@@ -36,7 +36,7 @@
 }
 
 .min_width {
-    min-width: 150px;
+    min-width: 125px;
 }
 
 :global(.searchmatch) {
