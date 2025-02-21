@@ -21,6 +21,7 @@
 
 # Dependency directories
 **/node_modules/
+**/.vite/
 
 # TypeScript cache
 **/*.tsbuildinfo
