@@ -1,0 +1,86 @@
+:root {
+    --typing-font-size: 4rem;
+    --line-height: 4rem;
+}
+
+.typed {
+    font-size: var(--typing-font-size);
+    font-family: "Linux Libertine", serif;
+    color: var(--bs-body-color);
+    position: relative;
+    font-variant-ligatures: none;
+    font-kerning: none;
+}
+
+.typed_wrong {
+    font-size: var(--typing-font-size);
+    font-family: "Linux Libertine", serif;
+    color: var(--bs-danger);
+}
+
+.typing {
+    display: inline;
+    font-size: var(--typing-font-size);
+    font-family: "Linux Libertine", serif;
+    color: var(--bs-body-color);
+    position: relative;
+    font-variant-ligatures: none;
+    font-kerning: none;
+}
+
+.typing::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 3px;
+    background-color: var(--bs-tertiary-color);
+    animation: blink .7s step-end infinite alternate;
+}
+
+.typing_wrong {
+    font-size: var(--typing-font-size);
+    font-family: "Linux Libertine", serif;
+    color: red;
+    position: relative;
+    font-variant-ligatures: none;
+    font-kerning: none;
+    color: var(--bs-danger);
+}
+
+.typing_wrong::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 3px;
+    background-color: var(--bs-tertiary-color);
+    animation: blink .7s step-end infinite alternate;
+}
+
+.to_type {
+    font-size: var(--typing-font-size);
+    font-family: "Linux Libertine", serif;
+    color: var(--bs-tertiary-color);
+    position: relative;
+    font-variant-ligatures: none;
+    font-kerning: none;
+}
+
+.cursor {
+    position: relative;
+    vertical-align: middle;
+}
+
+.cursor::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 3px;
+    background-color: var(--bs-tertiary-color);
+    animation: blink .7s step-end infinite alternate;
+}
+
+@keyframes blink {
+    50% {
+        background-color: transparent
+    }
+}
