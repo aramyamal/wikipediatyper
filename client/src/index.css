@@ -6,6 +6,7 @@
     --bs-secondary-bg-rgb: 233, 233, 233;
 
     --bs-emphasis-color-rgb: var(--bs-body-color-rgb);
+    --bs-danger-rgb: 232, 83, 62;
 
     --bs-body-color: rgb(var(--bs-body-color-rgb));
     --bs-body-bg: rgb(var(--bs-body-bg-rgb));
@@ -15,6 +16,7 @@
     --bs-tertiary-bg: rgb(var(--bs-secondary-bg-rgb));
 
     --bs-emphasis-color: rgb(var(--bs-emphasis-color-rgb));
+    --bs-danger: rgb(var(--bs-danger-rgb));
 
     --transition-duration: 0.3s;
 }
@@ -26,6 +28,8 @@
         /* dark background */
         --bs-body-bg-rgb: 38, 38, 38;
         --bs-secondary-bg-rgb: 44, 44, 44;
+
+        --bs-danger-rgb: 204, 89, 85;
 
     }
 }
