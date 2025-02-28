@@ -11,7 +11,7 @@ export class WikipediaTyperService {
         return "https://" + language + ".wikipedia.org/w/api.php";
     }
 
-    async scrape(url: string): Promise<WikiArticle> {
+    async scrape(url: string): Promise<Article> {
 
         if (!url) {
             throw new HttpError(400, "No article URL provided")
@@ -54,7 +54,7 @@ export class WikipediaTyperService {
             throw new HttpError(404, "Article not found");
         }
 
-        return page;
+        return this.prettify(page);
     }
 
     async prettify(wikiArticle: WikiArticle): Promise<Article> {
