@@ -17,9 +17,10 @@ interface Article {
 }
 
 const Typing: React.FC = () => {
-    const [userInput, setUserInput] = useState("");
+    const [userInput, setUserInput] = useState<string>("");
+    const [currentSegmentIndex, setCurrentSegmentIndex] = useState<number>(0)
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const [textToType, setTextToType] = useState<Article>({
+    const [article, setArticle] = useState<Article>({
         title: "Loading...",
         segments: []
     });
@@ -33,10 +34,10 @@ const Typing: React.FC = () => {
             try {
                 const apiUrl = `http://localhost:3000${location.pathname}`;
                 const response = await axios.get<Article>(apiUrl);
-                setTextToType(response.data);
+                setArticle(response.data);
             } catch (error) {
                 console.error("Error fetching Article:", error);
-                setTextToType({
+                setArticle({
                     title: "Error fetching Article",
                     segments: []
                 });
@@ -45,6 +46,25 @@ const Typing: React.FC = () => {
 
         fetchText();
     }, [location.pathname]); // re-fetch when URL changes
+
+    const currentText: string =
+        currentSegmentIndex === 0
+            ? article.title
+            : article.segments[currentSegmentIndex - 1].body;
+
+    // auto focus when currentSegmentIndex changes
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, [currentSegmentIndex]);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            if (userInput.length >= currentText.length) {
+                setCurrentSegmentIndex(currentSegmentIndex + 1);
+                setUserInput("");
+            }
+        }
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserInput(e.target.value);
@@ -69,37 +89,37 @@ const Typing: React.FC = () => {
         return classes.typed_wrong;
     }
 
-    // auto focus
-    useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, []);
-
     return (
-        <>
-            <div onClick={() => inputRef.current?.focus()}>
+        <div onClick={() => inputRef.current?.focus()}>
+            {currentSegmentIndex > 0 && (
+                <div className={`${classes.typed}`}>
+                    <p className="fw-bold">{article.title}<i className={`mx-2 bi bi-arrow-return-left ${classes.typed}`}></i></p>
+                    {article.segments.slice(0, currentSegmentIndex - 1).map((seg, idx) => (
+                        <p key={idx}>{seg.body}</p>
+                    ))}
+                </div>
+            )}
 
-                {/* invisible input to capture keyboard press */}
-                <input
-                    ref={inputRef}
-                    type="text"
-                    value={userInput}
-                    onChange={handleInputChange}
-                    className="opacity-0 position-absolute"
-                />
-
-                {textToType.title.split("").map((letter, index) => (
-                    <span key={index}
-                        className={`${getTypingClass(letter, index)}`}>
+            <div>
+                {currentText.split("").map((letter, index) => (
+                    <span key={index} className={getTypingClass(letter, index)}>
                         {letter}
                     </span>
                 ))}
-
+                <i className={`mx-2 bi bi-arrow-return-left ${classes.to_type}`}></i>
             </div>
 
-        </>
-    )
+
+            <input
+                ref={inputRef}
+                type="text"
+                value={userInput}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                className="opacity-0 position-absolute"
+            />
+        </div>
+    );
 };
 
 export default Typing;
