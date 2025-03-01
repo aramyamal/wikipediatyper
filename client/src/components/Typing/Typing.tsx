@@ -23,18 +23,13 @@ const Typing: React.FC = () => {
         title: "Loading...",
         segments: []
     });
-    const [hasFetched, setHasFetched] = useState<boolean>(false);
-
     const location = useLocation();
 
     useEffect(() => {
         const fetchText = async () => {
-            if (location.pathname === "/" || hasFetched) {
+            if (location.pathname === "/") {
                 return;
             }
-
-            setHasFetched(true);
-
             try {
                 const apiUrl = `http://localhost:3000${location.pathname}`;
                 const response = await axios.get<Article>(apiUrl);
@@ -45,7 +40,6 @@ const Typing: React.FC = () => {
                     title: "Error fetching Article",
                     segments: []
                 });
-
             }
         };
 
