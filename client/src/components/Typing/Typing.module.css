@@ -1,5 +1,5 @@
 :root {
-    --typing-font-size: 4rem;
+    --typing-font-size: 3.5rem;
     --line-height: 4rem;
 }
 
@@ -19,7 +19,6 @@
 }
 
 .typing {
-    display: inline;
     font-size: var(--typing-font-size);
     font-family: "Linux Libertine", serif;
     color: var(--bs-body-color);
@@ -31,8 +30,10 @@
 .typing::after {
     content: '';
     position: absolute;
-    height: 100%;
+    right: 0;
+    top: 0;
     width: 3px;
+    height: 1em;
     background-color: var(--bs-tertiary-color);
     animation: blink .7s step-end infinite alternate;
 }
@@ -40,18 +41,19 @@
 .typing_wrong {
     font-size: var(--typing-font-size);
     font-family: "Linux Libertine", serif;
-    color: red;
+    color: var(--bs-danger);
     position: relative;
     font-variant-ligatures: none;
     font-kerning: none;
-    color: var(--bs-danger);
 }
 
 .typing_wrong::after {
     content: '';
     position: absolute;
-    height: 100%;
+    right: 0;
+    top: 0;
     width: 3px;
+    height: 1em;
     background-color: var(--bs-tertiary-color);
     animation: blink .7s step-end infinite alternate;
 }
