@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import axios from "axios";
@@ -15,6 +16,8 @@ const WikipediaSearch: React.FC<WikiSearchProps> = ({ selectedLangCode }) => {
     const [results, setResults] = useState<any[]>([]);
 
     const [showResults, setShowResults] = useState<boolean>(false);
+
+    const navigate = useNavigate();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setQuery(event.target.value);
@@ -82,8 +85,9 @@ const WikipediaSearch: React.FC<WikiSearchProps> = ({ selectedLangCode }) => {
                         <ListGroup.Item
                             key={result.pageid} action
                             target="_blank"
-                            href={`https://${selectedLangCode}.wikipedia.org/` +
-                                `wiki/${encodeURIComponent(result.title)}`}
+                            onClick={() => navigate(
+                                `https://${selectedLangCode}.wikipedia.org/` +
+                                `wiki/${encodeURIComponent(result.title)}`)}
                             className={`
                                 bg-transparent border-0 rounded-3 my-2
                                 ${classes.select_dropdown}
