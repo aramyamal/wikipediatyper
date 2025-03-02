@@ -20,8 +20,7 @@ const Typing: React.FC = () => {
     const [userInput, setUserInput] = useState<string>("");
     const [currentSegmentIndex, setCurrentSegmentIndex] = useState<number>(0)
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const currentSegmentRef = useRef<HTMLDivElement | null>(null);
-
+    const lastLetterRef = useRef<HTMLSpanElement | null>(null);
     const [article, setArticle] = useState<Article>({
         title: "Loading...",
         segments: []
@@ -49,6 +48,21 @@ const Typing: React.FC = () => {
         fetchText();
     }, [location.pathname]); // re-fetch when URL changes
 
+    // auto focus when currentSegmentIndex changes
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, [currentSegmentIndex]);
+
+    // scroll to the last typed letter when userInput updates
+    useEffect(() => {
+        if (userInput.length > 0 && lastLetterRef.current) {
+            lastLetterRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
+    }, [userInput]);
+
     const currentText: string =
         currentSegmentIndex === 0
             ? article.title
@@ -64,18 +78,6 @@ const Typing: React.FC = () => {
             ? article.segments
             : article.segments.slice(currentSegmentIndex);
 
-    // auto focus when currentSegmentIndex changes
-    useEffect(() => {
-        inputRef.current?.focus();
-    }, [currentSegmentIndex]);
-
-    // Scroll to current segment when it updates
-    useEffect(() => {
-        currentSegmentRef.current?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",  // Ensures it centers in view
-        });
-    }, [currentSegmentIndex]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
@@ -116,7 +118,8 @@ const Typing: React.FC = () => {
     }
 
     return (
-        <div onClick={() => inputRef.current?.focus()}>
+        <div className={`${classes.center}`}
+            onClick={() => inputRef.current?.focus()}>
             {/* completed segments */}
             {currentSegmentIndex > 0 && (
                 <div className={classes.typed}>
@@ -130,27 +133,29 @@ const Typing: React.FC = () => {
                         slice(0, currentSegmentIndex - 1)
                         .map((seg, idx) => (
                             <p className={`${getHeaderClass(seg.type)}`}
-                                key={idx}
-                            >
+                                key={idx}>
                                 {seg.body}
                                 <i className={`mx-2 bi bi-arrow-return-left 
-                                ${classes.to_type}`}
-                                ></i>
+                                ${classes.to_type}`}></i>
                             </p>
                         ))}
                 </div>
             )}
 
-            <div ref={currentSegmentRef}>
-                {currentText.split("").map((letter, index) => (
-                    <span
-                        key={index}
-                        className={` ${getHeaderClass(currentArticleType)}
-                            ${getTypingClass(letter, index)}`}
-                    >
-                        {letter}
-                    </span>
-                ))}
+            <div>
+                {currentText.split("").map((letter, index) => {
+                    const isCursor = index === userInput.length - 1;
+                    return (
+                        <span
+                            key={index}
+                            ref={isCursor ? lastLetterRef : null}
+                            className={`${getHeaderClass(currentArticleType)} 
+                                        ${getTypingClass(letter, index)}`}
+                        >
+                            {letter}
+                        </span>
+                    );
+                })}
                 <i className={`mx-2 bi bi-arrow-return-left ${classes.to_type}`}></i>
             </div>
 

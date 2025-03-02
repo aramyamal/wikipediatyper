@@ -3,6 +3,10 @@
     --line-height: 4rem;
 }
 
+.center {
+    margin-top: 40vh;
+}
+
 .typed {
     font-size: var(--typing-font-size);
     font-family: "Linux Libertine", serif;
