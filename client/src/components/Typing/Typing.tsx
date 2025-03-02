@@ -126,8 +126,8 @@ const Typing: React.FC = () => {
                     <p className="fw-bold">
                         {article.title}
                         <i className={`mx-2 bi bi-arrow-return-left 
-                            ${classes.to_type}`}
-                        ></i>
+                            ${classes.typed}`}
+                        ></i>{"\n"}
                     </p>
                     {article.segments.
                         slice(0, currentSegmentIndex - 1)
@@ -136,7 +136,7 @@ const Typing: React.FC = () => {
                                 key={idx}>
                                 {seg.body}
                                 <i className={`mx-2 bi bi-arrow-return-left 
-                                ${classes.to_type}`}></i>
+                                ${classes.typed}`}></i>{"\n"}
                             </p>
                         ))}
                 </div>
@@ -156,7 +156,8 @@ const Typing: React.FC = () => {
                         </span>
                     );
                 })}
-                <i className={`mx-2 bi bi-arrow-return-left ${classes.to_type}`}></i>
+                <i className={`mx-2 bi bi-arrow-return-left 
+                    ${classes.to_type}`}></i>{"\n"}
             </div>
 
             {upcomingSegments.length > 0 && (
@@ -166,7 +167,7 @@ const Typing: React.FC = () => {
                             key={idx}>{seg.body}
                             <i className={`mx-2 bi bi-arrow-return-left 
                                 ${classes.to_type}`}
-                            ></i>
+                            ></i>{"\n"}
                         </p>
                     ))}
                 </div>

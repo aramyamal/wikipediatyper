@@ -42,3 +42,14 @@
 :global(.searchmatch) {
     font-weight: bold;
 }
+
+.gradient_navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, var(--bs-body-bg), transparent);
+  pointer-events: none; 
+}

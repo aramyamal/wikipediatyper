@@ -33,8 +33,8 @@ const TopBar: React.FC = () => {
 
     return (
         <>
-            <Navbar className="bg-body px-3"
-            fixed="top">
+            <Navbar className={`bg-body px-3 ${classes.gradientNavbar}`}
+                fixed="top">
                 <Navbar.Brand
                     href="/"
                     className={`fs-1  mx-2 ${classes.brand}`}
