@@ -1,0 +1,22 @@
+.nav-link:hover {
+  color: var(--bs-secondary-color);
+}
+
+.btn-icon {
+  transition: color 0.2s, transform 0.2s;
+}
+
+.btn-icon:focus,
+.btn-icon:hover {
+  transform: translateY(-2px);
+  color: var(--bs-secondary-color);
+}
+
+.btn-text {
+  transition: color 0.2s, transform 0.2s;
+}
+
+.btn-text:focus,
+.btn-text:hover {
+  color: var(--bs-secondary-color);
+}

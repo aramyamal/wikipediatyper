@@ -1,3 +1,26 @@
-<header class="p-3 border-bottom border-3">
-  <span class="font-serif fs-1">WikipediaTyper</span>
+<header class="sticky-top navbar border-bottom border-3">
+  <nav class="container-xxl">
+    <div class="row w-100 align-items-center">
+      <div class="col">
+        <a class="nav-link text-decoration-none font-serif fs-1" href="/" aria-label="WikipediaTyper">WikipediaTyper</a>
+      </div>
+      <div class="col-6">
+        <div class="font-serif bg-secondary-subtle rounded-3 px-3 py-2 d-flex align-items-center">
+          <button type="button" class="btn btn-text p-0 pe-auto w-100">
+            {{articleName()}}
+          </button>
+          <span class="text-secondary">│</span>
+          <button type="button" class="btn btn-icon p-0 mx-2" aria-label="Search" (click)="onSearchClick()">
+            <i class="bi bi-search"></i>
+          </button>
+          <button type="button" class="btn btn-icon p-0" aria-label="Shuffle" (click)="onShuffleClick()">
+            <i class="bi bi-shuffle"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col text-end">
+        settings here
+      </div>
+    </div>
+  </nav>
 </header>
