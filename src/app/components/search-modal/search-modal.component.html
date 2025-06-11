@@ -3,8 +3,16 @@
     <div class="modal-content">
       <div class="modal-body">
         <h1 class="modal-title font-serif fs-4" id="exampleModalLabel">Wikipedia article search</h1>
-        <p class="font-serif m-0">Here goes search boxes<br>
-          And here goes results cards</p>
+        <div class="input-group">
+        <input class="form-control" id="searchTerm" type="text" [formControl]="searchTerm">
+        <select class="form-select w-auto flex-grow-0" id="language">
+          <option selected>en</option>
+          <option value="1">de</option>
+          <option value="2">sv</option>
+          <option value="3">ar</option>
+        </select>
+        </div>
+
         @for (i of array; track i) {
         <div class="card my-2" aria-hidden="true">
           <div class="card-body">
