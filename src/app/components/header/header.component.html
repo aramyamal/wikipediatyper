@@ -6,7 +6,7 @@
       </div>
       <div class="col-6">
         <div class="font-serif bg-secondary-subtle rounded-3 px-3 py-2 d-flex align-items-center">
-          <button type="button" class="btn btn-text p-0 pe-auto w-100">
+          <button type="button" class="btn btn-text p-0 pe-auto w-100" (click)="onSearchClick()">
             {{articleName()}}
           </button>
           <span class="text-secondary">│</span>
@@ -24,3 +24,5 @@
     </div>
   </nav>
 </header>
+
+<app-search-modal/>

@@ -1,15 +1,22 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, viewChild } from '@angular/core';
+import { SearchModalComponent } from '../search-modal/search-modal.component';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [SearchModalComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
   articleName = signal("Article Name Placeholder");
 
-  onSearchClick() { }
-  onShuffleClick() { }
+  searchModalComponent = viewChild(SearchModalComponent);
 
+  onSearchClick() {
+    const component = this.searchModalComponent();
+    if (component) {
+      component.show();
+    }
+  }
+  onShuffleClick() { }
 }
