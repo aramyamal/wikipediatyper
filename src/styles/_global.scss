@@ -3,7 +3,7 @@
     font-style: normal;
     font-weight: normal;
     font-display: swap;
-    src: url("/fonts/LinLibertine_Rah.ttf");
+    src: url("/fonts/LinuxLibertine/LinLibertine_Rah.ttf");
 }
 
 @font-face {
@@ -11,7 +11,7 @@
     font-style: normal;
     font-weight: bold;
     font-display: swap;
-    src: url("/fonts/LinLibertine_RBah.ttf");
+    src: url("/fonts/LinuxLibertine/LinLibertine_RBah.ttf");
 }
 
 @font-face {
@@ -19,7 +19,7 @@
     font-style: italic;
     font-weight: normal;
     font-display: swap;
-    src: url("/fonts/LinLibertine_RIah.ttf");
+    src: url("/fonts/LinuxLibertine/LinLibertine_RIah.ttf");
 }
 
 @font-face {
@@ -27,7 +27,7 @@
     font-style: italic;
     font-weight: bold;
     font-display: swap;
-    src: url("/fonts/LinLibertine_RBIah.ttf");
+    src: url("/fonts/LinuxLibertine/LinLibertine_RBIah.ttf");
 }
 
 @font-face {
@@ -35,7 +35,7 @@
     font-style: normal;
     font-weight: 900;
     font-display: swap;
-    src: url("/fonts/LinLibertine_RZah.ttf");
+    src: url("/fonts/LinuxLibertine/LinLibertine_RZah.ttf");
 }
 
 @font-face {
@@ -43,7 +43,23 @@
     font-style: italic;
     font-weight: 900;
     font-display: swap;
-    src: url("/fonts/LinLibertine_RZIah.ttf");
+    src: url("/fonts/LinuxLibertine/LinLibertine_RZIah.ttf");
+}
+
+@font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 1 1000;
+    font-display: swap;
+    src: url("/fonts/OpenSans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype-variations");
+}
+
+@font-face {
+    font-family: "Open Sans";
+    font-style: italic;
+    font-weight: 1 1000;
+    font-display: swap;
+    src: url("/fonts/OpenSans/penSans-Italic-VariableFont_wdth,wght.ttf") format("truetype-variations");
 }
 
 $font-family-serif: "Linux Libertine", Georgia, "Times New Roman", Times, serif;

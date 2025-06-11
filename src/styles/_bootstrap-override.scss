@@ -55,6 +55,9 @@ $body-color: $gray-700;
 // ====================
 //     custom stuff
 // ====================
+$font-family-sans-serif: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+/* $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; */
 
 // ==============================
 //     final bootstrap import
@@ -64,6 +67,3 @@ $body-color: $gray-700;
 // this will do for now. see https://getbootstrap.com/docs/5.3/customize/sass/
 // and https://github.com/twbs/bootstrap/issues/40962
 @import "bootstrap/scss/bootstrap";
-
-
-
