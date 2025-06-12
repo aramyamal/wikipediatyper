@@ -1,33 +1,75 @@
-<div #searchModelRef class="modal fade" aria-labelledby="searchModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
+<div
+  #searchModelRef
+  class="modal fade"
+  aria-labelledby="searchModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content noBorder">
       <div class="modal-body">
-        <h1 class="modal-title font-serif fs-4" id="exampleModalLabel">Wikipedia article search</h1>
         <div class="input-group">
-        <input class="form-control" id="searchTerm" type="text" [formControl]="searchTerm">
-        <select class="form-select w-auto flex-grow-0" id="language">
-          <option selected>en</option>
-          <option value="1">de</option>
-          <option value="2">sv</option>
-          <option value="3">ar</option>
-        </select>
+          <input
+            class="form-control"
+            id="searchTerm"
+            type="text"
+            placeholder="Search for Wikipedia article to type here"
+            [formControl]="searchTerm"
+          >
+          <span class="formSeparator py-2">│</span>
+          <select
+            class="form-select w-auto flex-grow-0"
+            id="language"
+            [formControl]="searchLang"
+          >
+            @for (lang of languages; track lang.code) {
+            <option [value]="lang.code">
+              {{ lang.label }}
+            </option>
+            }
+          </select>
         </div>
 
-        @for (i of array; track i) {
-        <div class="card my-2" aria-hidden="true">
-          <div class="card-body">
-            <h5 class="card-title placeholder-glow">
-              <span class="placeholder col-6"></span>
-            </h5>
-            <p class="card-text placeholder-glow">
-              <span class="placeholder col-7"></span>
-              <span class="placeholder col-4"></span>
-              <span class="placeholder col-4"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-8"></span>
-            </p>
+        @if (loading()) {
+          <div class="mt-3">
+            @for (i of placeholderTextOffsets; track i) {
+              <div class="card my-2" aria-hidden="true">
+                <div class="card-body">
+                  <h4 class="card-title placeholder-glow">
+                    <span class="placeholder col-6"></span>
+                  </h4>
+                  <p class="card-text placeholder-glow">
+                    <span class="placeholder col-12"></span>
+                    <span class="placeholder col-{{i+3}}"></span>
+                  </p>
+                </div>
+              </div>
+            }
           </div>
-        </div>
+        }
+
+        @if (!loading() && results().length > 0) {
+          <div class="mt-3">
+            @for (result of results(); track result.pageid) {
+              <div
+                class="card my-2"
+                (click)="openArticle(result.title)"
+                style="cursor:pointer"
+              >
+                <div class="card-body">
+                  <h4 class="card-title font-serif">{{ result.title }}</h4>
+                  <p class="card-text">
+                    <span [innerHTML]="result.snippet + '...'"></span>
+                  </p>
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+        @if (!loading() &&  results().length === 0) {
+          <div class="mt-3 mx-2">
+            <h4 class="font-serif">No articles found.</h4>
+          </div>
         }
       </div>
     </div>

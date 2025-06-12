@@ -1,0 +1,20 @@
+::ng-deep .searchmatch {
+  font-weight: bold;
+}
+
+.form-control,
+.form-select {
+  border: none;
+  background-color: var(--bs-secondary-bg);
+}
+
+.formSeparator {
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.modal-content {
+  border: 0;
+}
