@@ -4,17 +4,28 @@
 
 .btn-icon {
   transition: color 0.2s, transform 0.2s;
-}
-
-.btn-icon:hover {
-  transform: translateY(-2px);
+  border: none;
   color: var(--bs-secondary-color);
 }
 
 .btn-text {
   transition: color 0.2s, transform 0.2s;
+  border: none;
+  color: var(--bs-secondary-color-subtle);
+}
+
+.btn-icon:hover {
+  transform: translateY(-2px);
+  color: var(--bs-secondary-color-subtle);
 }
 
 .btn-text:hover {
   color: var(--bs-secondary-color);
+}
+
+.btn-icon:active,
+.btn-text:active {
+  outline: none;
+  box-shadow: none;
+  border: none;
 }

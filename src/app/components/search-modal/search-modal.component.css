@@ -5,11 +5,11 @@
 .form-control,
 .form-select {
   border: none;
-  background-color: var(--bs-secondary-bg);
+  background-color: var(--bs-body-bg);
 }
 
 .formSeparator {
-  background-color: var(--bs-secondary-bg);
+  background-color: var(--bs-body-bg);
   color: var(--bs-secondary);
   display: flex;
   align-items: center;
@@ -17,4 +17,18 @@
 
 .modal-content {
   border: 0;
+}
+
+.modal-body {
+  background-color: var(--bs-secondary-bg-subtle);
+}
+
+.card {
+  background-color: var(--bs-body-bg);
+  border: 0;
+  transition: background-color 0.3s ease;
+}
+
+.card:hover {
+  background-color: var(--bs-secondary-bg);
 }

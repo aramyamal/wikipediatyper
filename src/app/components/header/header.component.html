@@ -1,28 +1,41 @@
 <header class="sticky-top navbar border-bottom border-3">
-  <nav class="container-xxl">
-    <div class="row w-100 align-items-center">
-      <div class="col">
-        <a class="nav-link text-decoration-none font-serif fs-1" href="/" aria-label="WikipediaTyper">WikipediaTyper</a>
+  <nav class="container-fluid">
+    <div class="row w-100 align-items-center mx-0">
+      <div class="col-auto">
+        <a class="nav-link text-decoration-none font-serif fs-2" href="/" aria-label="WikipediaTyper">WikipediaTyper</a>
       </div>
-      <div class="col-6">
+      <div class="col-md-6 col-xl-5 col-xxl-4 mx-auto p-0">
         <div class="font-serif bg-secondary-subtle rounded-3 px-3 py-2 d-flex align-items-center">
-          <button type="button" class="btn btn-text p-0 pe-auto w-100" (click)="onSearchClick()">
+          <button type="button" class="btn btn-text text-start p-0 pe-auto w-100" (click)="onSearchClick()" title="Search for article">
             {{articleName()}}
           </button>
           <span class="text-secondary">│</span>
-          <button type="button" class="btn btn-icon p-0 mx-2" aria-label="Search" (click)="onSearchClick()">
+          <button type="button" class="btn btn-icon p-0 mx-2" aria-label="Search for article" (click)="onSearchClick()"
+            title="Search for article">
             <i class="bi bi-search"></i>
           </button>
-          <button type="button" class="btn btn-icon p-0" aria-label="Shuffle" (click)="onShuffleClick()">
+
+          <button type="button" class="btn btn-icon p-0 ms-2" aria-label="Get random article" (click)="onShuffleClick()"
+            title="Get random article">
             <i class="bi bi-shuffle"></i>
           </button>
         </div>
       </div>
-      <div class="col text-end">
-        settings here
+      <div class="col-auto">
+        <button type="button" class="btn btn-icon p-0 mx-2" aria-label="Source code" title="Source code">
+          <i class="bi bi-github"></i>
+        </button>
+
+        <button type="button" class="btn btn-icon p-0 mx-2" aria-label="Sponsor" title="Sponsor">
+          <i class="bi bi-heart-fill"></i>
+        </button>
+
+        <button type="button" class="btn btn-icon p-0 ms-2" aria-label="Settings" title="Settings">
+          <i class="bi bi-gear-fill"></i>
+        </button>
       </div>
     </div>
   </nav>
 </header>
 
-<app-search-modal/>
+<app-search-modal />
