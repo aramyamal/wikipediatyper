@@ -19,13 +19,15 @@ import {
   of,
   startWith,
   switchMap,
-  map
+  map,
+  finalize
 } from 'rxjs';
 import {
   getEmptyWikiResponse,
   WikiResponse,
   WikiResult,
-} from './wikipedia-query.model';
+} from '../../models/wiki-api.model';
+import { WikiApiService } from '../../services/wiki-api.service';
 
 @Component({
   selector: 'app-search-modal',
@@ -48,6 +50,8 @@ export class SearchModalComponent implements AfterViewInit {
   ];
 
   private http = inject(HttpClient);
+  private wikiApi = inject(WikiApiService);
+
   constructor() {
 
     const search$ = this.searchTerm.valueChanges.pipe(
@@ -74,22 +78,14 @@ export class SearchModalComponent implements AfterViewInit {
       filter(([query, lang]) => !!query && query.length >= 3 && !!lang),
       // use switchMap to cancel unfinished requests when new ones come
       switchMap(([query, lang]) => {
-        this.loading.set(true);
-        return this.http.get<WikiResponse>(
-          `https://${lang}.wikipedia.org/w/api.php`,
-          {
-            params: {
-              action: 'query',
-              list: 'search',
-              format: 'json',
-              origin: '*',
-              srsearch: query ? String(query) : '',
-            }
-          }
-        ).pipe(
+        this.loading.set(true); // Set loading state
+        return this.wikiApi.searchWikipedia(lang ? lang : "", query ? query : "").pipe(
           catchError(() => {
-            this.loading.set(false);
-            return of(getEmptyWikiResponse());
+            this.loading.set(false); // Reset loading state on error
+            return of(getEmptyWikiResponse()); // Return an empty response
+          }),
+          finalize(() => {
+            this.loading.set(false); // Reset loading state after completion
           })
         );
       }),
