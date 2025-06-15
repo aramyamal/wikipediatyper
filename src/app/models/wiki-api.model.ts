@@ -1,4 +1,4 @@
-export interface WikiResponse {
+export interface WikiSearchResponse {
   batchcomplete: string;
   continue?: {
     sroffset: number;
@@ -22,7 +22,7 @@ export interface WikiResult {
   timestamp: string; // iso8601
 }
 
-export function getEmptyWikiResponse(): WikiResponse {
+export function getEmptyWikiResponse(): WikiSearchResponse {
   return {
     batchcomplete: "",
     query: {
@@ -33,3 +33,19 @@ export function getEmptyWikiResponse(): WikiResponse {
     }
   };
 }
+
+export interface WikiArticleResponse {
+  batchcomplete: boolean;
+  query: {
+    pages: WikiArticle[];
+  };
+}
+
+export interface WikiArticle {
+  pageid: number,
+  ns: number,
+  title: string;
+  extract?: string;
+  missing?: boolean;
+}
+

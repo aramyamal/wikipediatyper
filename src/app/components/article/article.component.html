@@ -1,3 +1,8 @@
 <div class="container-xxl">
+@if (this.errorMessage()) {
+  <app-error [errorMessage]="this.errorMessage()"/>
+} @else {
   <p class="font-serif fs-5">Displaying article {{articleUrl()}}</p>
+  {{articleTest()}}
+}
 </div>

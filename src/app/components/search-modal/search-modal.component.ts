@@ -24,10 +24,11 @@ import {
 } from 'rxjs';
 import {
   getEmptyWikiResponse,
-  WikiResponse,
+  WikiSearchResponse,
   WikiResult,
 } from '../../models/wiki-api.model';
 import { WikiApiService } from '../../services/wiki-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-modal',
@@ -50,6 +51,7 @@ export class SearchModalComponent implements AfterViewInit {
   ];
 
   private http = inject(HttpClient);
+  private router = inject(Router);
   private wikiApi = inject(WikiApiService);
 
   constructor() {
@@ -79,7 +81,7 @@ export class SearchModalComponent implements AfterViewInit {
       // use switchMap to cancel unfinished requests when new ones come
       switchMap(([query, lang]) => {
         this.loading.set(true); // Set loading state
-        return this.wikiApi.searchWikipedia(lang ? lang : "", query ? query : "").pipe(
+        return this.wikiApi.search(lang ? lang : "", query ? query : "").pipe(
           catchError(() => {
             this.loading.set(false); // Reset loading state on error
             return of(getEmptyWikiResponse()); // Return an empty response
@@ -89,7 +91,7 @@ export class SearchModalComponent implements AfterViewInit {
           })
         );
       }),
-      map((res: WikiResponse) => res.query.search),
+      map((res: WikiSearchResponse) => res.query.search),
     );
 
     results$.subscribe(result => {
@@ -113,11 +115,9 @@ export class SearchModalComponent implements AfterViewInit {
   }
 
   openArticle(title: string) {
-    const url =
-      `https://${this.searchLang.value}.wikipedia.org/wiki/` +
-      `${encodeURIComponent(title)}`;
-
-    window.open(url);
+    this.router.navigateByUrl(`/${this.searchLang.value}.wikipedia.org/wiki/` +
+      `${encodeURIComponent(title)}`)
+    this.searchModal.hide();
   }
 }
 
