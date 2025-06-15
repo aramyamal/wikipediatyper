@@ -28,7 +28,7 @@
 
         @if (loading()) {
           <div class="mt-3">
-            @for (i of placeholderTextOffsets; track i) {
+            @for (i of placeholderTextOffsets; track $index) {
               <div class="card my-2" aria-hidden="true">
                 <div class="card-body">
                   <h4 class="card-title placeholder-glow">
