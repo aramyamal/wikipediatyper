@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { WikiArticleResponse, WikiSearchResponse } from '../models/wiki-api.model';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import {
+  WikiArticleResponse,
+  WikiSearchResponse
+} from '../models/wiki-api.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WikiApiService {
   private http = inject(HttpClient);
-  private router = inject(Router);
 
   public validateUrl(url: string): boolean {
     const regex = /^([A-Za-z]{2,3})\.wikipedia\.org\/wiki\/.+$/i;
