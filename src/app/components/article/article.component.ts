@@ -1,6 +1,6 @@
 import { Component, inject, input, signal, effect } from '@angular/core';
 import { WikiApiService } from '../../services/wiki-api.service';
-import { ErrorComponent } from '../error/error';
+import { ErrorComponent } from '../error/error.component';
 import { WikiArticleResponse } from '../../models/wiki-api.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
