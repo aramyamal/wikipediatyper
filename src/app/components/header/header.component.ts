@@ -1,5 +1,6 @@
 import { Component, inject, signal, viewChild } from '@angular/core';
 import { SearchModalComponent } from '../search-modal/search-modal.component';
+import { GameStateService } from '../../services/game-state.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  articleName = signal("Article Name Placeholder");
+  gameState = inject(GameStateService);
 
   searchModalComponent = viewChild(SearchModalComponent);
 

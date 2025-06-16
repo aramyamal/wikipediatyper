@@ -17,6 +17,7 @@ import { GameStateService } from '../../services/game-state.service';
 })
 export class ArticleComponent {
   articleUrl = input.required<string>();
+  gameState = inject(GameStateService);
   wikiApi = inject(WikiApiService);
   formatter = inject(ArticleFormatterService);
 
@@ -55,6 +56,7 @@ export class ArticleComponent {
       this.errorMessage.set(errorMessage)
       return;
     }
+    this.gameState.articleTitle.set(title);
 
     this.wikiApi
       .getArticle(language, title)

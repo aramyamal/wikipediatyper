@@ -28,6 +28,7 @@ import {
 } from '../../models/wiki-api.model';
 import { WikiApiService } from '../../services/wiki-api.service';
 import { Router } from '@angular/router';
+import { GameStateService } from '../../services/game-state.service';
 
 @Component({
   selector: 'app-search-modal',
@@ -49,7 +50,7 @@ export class SearchModalComponent implements AfterViewInit {
     { code: 'ar', label: 'العربية' }
   ];
 
-  private http = inject(HttpClient);
+  private gameState = inject(GameStateService);
   private router = inject(Router);
   private wikiApi = inject(WikiApiService);
 
@@ -116,6 +117,7 @@ export class SearchModalComponent implements AfterViewInit {
   openArticle(title: string) {
     this.router.navigateByUrl(`/${this.searchLang.value}.wikipedia.org/wiki/` +
       `${encodeURIComponent(title)}`)
+    this.gameState.articleTitle.set(title);
     this.searchModal.hide();
   }
 }
