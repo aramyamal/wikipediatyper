@@ -9,7 +9,6 @@ import {
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Modal } from 'bootstrap';
 import { LanguageOption } from './language-option.model';
-import { HttpClient } from '@angular/common/http';
 import {
   catchError,
   combineLatest,

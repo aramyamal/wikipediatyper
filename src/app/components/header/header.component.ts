@@ -1,4 +1,4 @@
-import { Component, signal, viewChild } from '@angular/core';
+import { Component, inject, signal, viewChild } from '@angular/core';
 import { SearchModalComponent } from '../search-modal/search-modal.component';
 
 @Component({
