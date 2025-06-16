@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import {
   WikiArticleResponse,
+  WikiRandomResponse,
   WikiSearchResponse
 } from '../models/wiki-api.model';
 
@@ -51,5 +52,28 @@ export class WikiApiService {
           formatversion: 2
         },
       })
+  }
+
+  getRandomArticleUrl(lang: string): Observable<string> {
+    return this.http
+      .get<WikiRandomResponse>(
+        this.getApi(lang),
+        {
+          params: {
+            action: "query",
+            list: "random",
+            format: "json",
+            origin: "*",
+            rnnamespace: "0",
+            rnlimit: "1",
+          }
+        })
+      .pipe(
+        map((response) => {
+          const randomPage = response.query.random[0];
+          const encodedTitle = encodeURIComponent(randomPage.title);
+          return `${lang}.wikipedia.org/wiki/${encodedTitle}`;
+        }),
+      );
   }
 }

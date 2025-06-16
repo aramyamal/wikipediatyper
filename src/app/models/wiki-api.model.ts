@@ -49,3 +49,19 @@ export interface WikiArticle {
   missing?: boolean;
 }
 
+export interface WikiRandomResponse {
+  batchcomplete?: string;
+  continue?: {
+    rncontinue: string;
+    continue: string;
+  };
+  query: {
+    random: [
+      {
+        id: number;
+        ns: number;
+        title: string;
+      }
+    ];
+  };
+}
