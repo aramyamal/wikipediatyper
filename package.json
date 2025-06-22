@@ -19,6 +19,7 @@
     "@angular/router": "^20.0.0",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
+    "katex": "^0.16.22",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

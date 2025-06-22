@@ -25,7 +25,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/katex/dist/katex.min.css"
             ]
           },
           "configurations": {
