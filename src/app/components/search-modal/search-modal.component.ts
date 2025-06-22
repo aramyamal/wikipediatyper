@@ -116,7 +116,7 @@ export class SearchModalComponent implements AfterViewInit {
 
   openArticle(title: string) {
     this.router.navigateByUrl(`/${this.searchLang.value}.wikipedia.org/wiki/` +
-      `${encodeURIComponent(title)}`)
+      `${this.wikiApi.urlEncodeTitle(title)}`)
     this.gameState.articleTitle.set(title);
     this.searchTerm.setValue(title);
     this.searchModal.hide();

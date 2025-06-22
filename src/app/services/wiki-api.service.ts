@@ -71,9 +71,16 @@ export class WikiApiService {
       .pipe(
         map((response) => {
           const randomPage = response.query.random[0];
-          const encodedTitle = encodeURIComponent(randomPage.title);
+          const encodedTitle = this.urlEncodeTitle(randomPage.title);
           return `${lang}.wikipedia.org/wiki/${encodedTitle}`;
         }),
       );
+  }
+
+  urlEncodeTitle(title: string): string {
+    const encodedTitle = encodeURIComponent(title);
+    return encodedTitle
+      .replace(/\(/g, '%28') // Replace ( with %28
+      .replace(/\)/g, '%29'); // Replace ) with %29
   }
 }
