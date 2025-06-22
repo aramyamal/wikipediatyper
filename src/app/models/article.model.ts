@@ -1,5 +1,5 @@
 export interface ArticleSegment {
-  type: `header${number}` | "text",
+  type: `header${number}` | "text" | "math",
   body: string
 }
 

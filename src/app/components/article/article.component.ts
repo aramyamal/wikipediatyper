@@ -8,10 +8,11 @@ import {
 } from '../../services/article-formatter.service';
 import { Article } from '../../models/article.model';
 import { GameStateService } from '../../services/game-state.service';
+import { MathComponent } from '../math/math.component';
 
 @Component({
   selector: 'app-article.component',
-  imports: [ErrorComponent],
+  imports: [ErrorComponent, MathComponent],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css'
 })

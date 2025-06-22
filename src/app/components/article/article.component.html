@@ -19,6 +19,9 @@
           @case ('text') {
             <p class="font-serif fs-5 mb-3 font-serif">{{ segment.body }}</p>
           }
+          @case ('math') {
+            <app-math [latex]="segment.body"></app-math>
+          }
           @default {
             <p class="font-serif">{{ segment.body }}</p>
           }

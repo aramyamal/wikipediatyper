@@ -16,24 +16,30 @@ export class ArticleFormatterService {
       // replace all " ." with "."
       .replace(/\s\./g, ".")
       // replace all "–" with "-" for writability
-      .replace(/–/g, "-");
+      .replace(/–/g, "-")
+      // replce prime symbol with '
+      .replace(/′/g, "'")
+      .replace(/″/g, "''")
+      .replace(/‴/g, "'''")
+      .replace(/⁗/g, "''''");
 
     // lastly, remove empty sections
   }
 
   private cleanCurlyBraces(text: string): string {
-    let depth = 0;
-    let result = "";
-    for (const char of text) {
-      if (char === '{') {
-        depth++;
-      } else if (char === '}') {
-        if (depth > 0) depth--;
-      } else if (depth === 0) {
-        result += char;
-      }
-    }
-    return result;
+    // let depth = 0;
+    // let result = "";
+    // for (const char of text) {
+    //   if (char === '{') {
+    //     depth++;
+    //   } else if (char === '}') {
+    //     if (depth > 0) depth--;
+    //   } else if (depth === 0) {
+    //     result += char;
+    //   }
+    // }
+    // return result;
+    return text;
   }
 
   private truncate(text: string): string {
@@ -72,6 +78,11 @@ export class ArticleFormatterService {
           type: `header${level}`,
           body: body
         });
+      } else if (rawSegment.includes("{\\")) {
+        articleSegments.push({
+          type: "math",
+          body: rawSegment
+        })
       } else {
         articleSegments.push({
           type: "text",
@@ -82,6 +93,10 @@ export class ArticleFormatterService {
 
     articleSegments = articleSegments.filter((segment, index, allSegments) => {
       if (segment.type === "text") {
+        const words = segment.body.split(/\s+/).filter(word => word.length > 0);
+        if (words.length <= 1) {
+          return false;
+        }
         return true;
       }
       const nextSegment = allSegments[index + 1];
