@@ -57,6 +57,7 @@ export class ArticleComponent {
       return;
     }
     this.gameState.articleTitle.set(title);
+    this.gameState.searchTerm.setValue(title);
 
     this.wikiApi
       .getArticle(language, title)

@@ -1,6 +1,7 @@
-import { Component, inject, signal, viewChild } from '@angular/core';
+import { Component, inject, viewChild } from '@angular/core';
 import { SearchModalComponent } from '../search-modal/search-modal.component';
 import { GameStateService } from '../../services/game-state.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,8 @@ import { GameStateService } from '../../services/game-state.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  gameState = inject(GameStateService);
+  protected gameState = inject(GameStateService);
+  private router = inject(Router);
 
   searchModalComponent = viewChild(SearchModalComponent);
 
@@ -19,5 +21,7 @@ export class HeaderComponent {
       component.show();
     }
   }
-  onShuffleClick() { }
+  onShuffleClick() {
+    this.router.navigateByUrl("/");
+  }
 }

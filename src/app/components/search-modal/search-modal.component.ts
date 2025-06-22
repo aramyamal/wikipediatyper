@@ -37,7 +37,6 @@ import { GameStateService } from '../../services/game-state.service';
   styleUrl: './search-modal.component.css'
 })
 export class SearchModalComponent implements AfterViewInit {
-  searchTerm = new FormControl("");
   searchLang = new FormControl("en");
   loading = signal(false);
   results = signal<WikiResult[]>([]);
@@ -51,6 +50,7 @@ export class SearchModalComponent implements AfterViewInit {
   ];
 
   private gameState = inject(GameStateService);
+  protected searchTerm = this.gameState.searchTerm;
   private router = inject(Router);
   private wikiApi = inject(WikiApiService);
 
@@ -118,6 +118,7 @@ export class SearchModalComponent implements AfterViewInit {
     this.router.navigateByUrl(`/${this.searchLang.value}.wikipedia.org/wiki/` +
       `${encodeURIComponent(title)}`)
     this.gameState.articleTitle.set(title);
+    this.searchTerm.setValue(title);
     this.searchModal.hide();
   }
 }
