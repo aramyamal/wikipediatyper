@@ -2,33 +2,6 @@
 @if (this.errorMessage(); as error) {
   <app-error [errorMessage]="error"/>
 } @else {
-    @if (article(); as art) {
-      <h1 class="mt-4 font-serif">{{ art.title }}</h1>
-
-      @for (segment of art.segments; track segment) {
-        @switch (segment.type) {
-          @case ('header2') {
-            <h2 class="mt-4 mb-2 font-serif">{{ segment.body }}</h2>
-          }
-          @case ('header3') {
-            <h3 class="mt-4 mb-2 font-serif">{{ segment.body }}</h3>
-          }
-          @case ('header4') {
-            <h4 class="mt-4 mb-2 font-serif">{{ segment.body }}</h4>
-          }
-          @case ('text') {
-            <p class="font-serif fs-5 mb-3 font-serif">{{ segment.body }}</p>
-          }
-          @case ('math') {
-            <app-math [latex]="segment.body"></app-math>
-          }
-          @default {
-            <p class="font-serif">{{ segment.body }}</p>
-          }
-        }
-      }
-    } @else {
-      <p class="font-serif fs-5">Loading article...</p>
-    }
-  }
+  <app-typing-game/>
+}
 </div>

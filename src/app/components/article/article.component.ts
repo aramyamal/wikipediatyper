@@ -8,11 +8,11 @@ import {
 } from '../../services/article-formatter.service';
 import { Article } from '../../models/article.model';
 import { GameStateService } from '../../services/game-state.service';
-import { MathComponent } from '../math/math.component';
+import { TypingGameComponent } from '../typing-game/typing-game.component';
 
 @Component({
   selector: 'app-article.component',
-  imports: [ErrorComponent, MathComponent],
+  imports: [ErrorComponent, TypingGameComponent],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css'
 })
@@ -23,7 +23,6 @@ export class ArticleComponent {
   formatter = inject(ArticleFormatterService);
 
   errorMessage = signal<string>("");
-  article = signal<Article>({} as Article);
 
   constructor() {
     effect(() => {
@@ -70,7 +69,7 @@ export class ArticleComponent {
               "exist on Wikipedia.");
           } else {
             const article: Article = this.formatter.format(response);
-            this.article.set(article);
+            this.gameState.article.set(article);
           }
         },
         error: (err: HttpErrorResponse) => {

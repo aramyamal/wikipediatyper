@@ -1,0 +1,28 @@
+@if (this.gameState.article(); as art) {
+  <h1 class="display-1 mt-4 font-serif">{{ art.title }}</h1>
+
+  @for (segment of art.segments; track segment) {
+    @switch (segment.type) {
+      @case ('header2') {
+        <h2 class="display-2 mt-4 mb-2 font-serif">{{ segment.body }}</h2>
+      }
+      @case ('header3') {
+        <h3 class="display-3 mt-4 mb-2 font-serif">{{ segment.body }}</h3>
+      }
+      @case ('header4') {
+        <h4 class="display-4 mt-4 mb-2 font-serif">{{ segment.body }}</h4>
+      }
+      @case ('text') {
+        <p class="display-6 mb-3 font-serif">{{ segment.body }}</p>
+      }
+      @case ('math') {
+        <app-math class="fs-3" [latex]="segment.body"></app-math>
+      }
+      @default {
+        <p class="font-serif">{{ segment.body }}</p>
+      }
+    }
+  }
+} @else {
+  <p class="font-serif fs-5">Loading article...</p>
+}
