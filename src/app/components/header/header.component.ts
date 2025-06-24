@@ -24,4 +24,8 @@ export class HeaderComponent {
   onShuffleClick() {
     this.router.navigateByUrl("/");
   }
+
+  openGithub() {
+    window.open('https://github.com/aramyamal/wikipediatyper', '_blank', 'noopener');
+  }
 }
