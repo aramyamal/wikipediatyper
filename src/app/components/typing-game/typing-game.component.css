@@ -1,0 +1,28 @@
+.spacing-tight {
+  letter-spacing: -0.27em;
+}
+
+.spacing-headers {
+  letter-spacing: -0.12em;
+}
+
+.spacing-normal {
+  letter-spacing: 0em;
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 0.5em;
+}
+
+.word-no-space {
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 0em;
+}
+
+.math-block {
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}

@@ -1,3 +1,7 @@
 @use "styles/bootstrap-override";
 @use "styles/global";
-@use "bootstrap-icons/font/bootstrap-icons.scss"
+@use "bootstrap-icons/font/bootstrap-icons.scss";
+
+html, body {
+  overflow-x: hidden;
+};

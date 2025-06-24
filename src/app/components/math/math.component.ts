@@ -1,23 +1,26 @@
-import { Component, effect, ElementRef, input, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, input, viewChild } from '@angular/core';
 import katex from 'katex';
 
 @Component({
   selector: 'app-math',
   imports: [],
   templateUrl: './math.component.html',
-  styleUrl: './math.component.css'
+  styleUrl: './math.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MathComponent {
-  latex = input.required<string>();
+  latex = input.required<string | undefined>();
+  inline = input(false);
   mathElement = viewChild<ElementRef>("math");
 
   constructor() {
     effect(() => {
       const mathElement = this.mathElement();
-      if (mathElement) {
-        katex.render(this.latex(), mathElement.nativeElement, {
+      const latex = this.latex();
+      if (mathElement && latex) {
+        katex.render(latex, mathElement.nativeElement, {
           throwOnError: false,
-          displayMode: true
+          displayMode: !this.inline
         });
       }
     });
