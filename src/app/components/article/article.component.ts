@@ -33,6 +33,7 @@ export class ArticleComponent {
   }
 
   private loadArticle(url: string): void {
+    this.gameState.reset();
     const errorMessage = "Incorrect Wikipedia URL. Try using the search " +
       "feature to find the article you're looking for." // 400 error code
 

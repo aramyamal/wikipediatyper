@@ -1,0 +1,57 @@
+@if (word().word) {
+  <span class="word text-body-tertiary">
+  @for (q of word().word; track q; let qIndex = $index) {
+    @let correct = this.gameState.isCorrectLetter(sIndex(), wIndex(), qIndex);
+    <span
+      [class.text-body]="correct === true"
+      [class.text-danger]="correct === false"
+      [class.cursor]="this.gameState.isCursorPos(sIndex(), wIndex(), qIndex)()"
+      [class.char-cursor]="this.gameState.isCursorPos(sIndex(), wIndex(), qIndex)()"
+    >
+      {{ q.value }}
+    </span>
+  }
+
+  @let excess = this.gameState.getExcess(sIndex(), wIndex())();
+  @if (excess) {
+    <span class="text-danger">{{ this.gameState.getExcess(sIndex(), wIndex())() }}</span>
+    <span class="space-cursor-slot no-space"
+      [class.cursor]="this.gameState.isCursorPos(sIndex(), wIndex(), this.gameState.getWordLength(sIndex(), wIndex()) + excess.length)()"
+      [class.char-cursor]="this.gameState.isCursorPos(sIndex(), wIndex(), this.gameState.getWordLength(sIndex(), wIndex()) + excess.length)()"
+    ></span>
+  } @else if (wIndex() < segmentBodyLength() - 1) {
+    <span
+      class="space-cursor-slot"
+      [class.cursor]="this.gameState.isSpaceCursorPos(sIndex(), wIndex())()"
+      [class.char-cursor]="this.gameState.isSpaceCursorPos(sIndex(), wIndex())()"
+    >
+    </span>
+  }
+  </span>
+}
+@if (word().math; as math) {
+  <span
+    class="fs-2 text-success icon-wrapper"
+    [class.word-no-space]="math.noSpace"
+    [class.text-body]="this.gameState.isCorrectLetter(sIndex(), wIndex(), 0)"
+    [class.cursor]="this.gameState.isCursorPos(sIndex(), wIndex(), 0)()"
+    [class.char-cursor]="this.gameState.isCursorPos(sIndex(), wIndex(), 0)()"
+  >
+    <app-math [latex]="word().math?.latex" [inline]="true"></app-math>
+  </span>
+}
+
+@if (wIndex() === segmentBodyLength() - 1) {
+  @let enterIconCursor = this.gameState.isCursorPos(sIndex(), wIndex(), this.gameState.getWordLength(sIndex(), wIndex()))();
+   @let segmentPassed = this.gameState.currentSegmentIndex() > sIndex();
+  <span
+    class="enter-icon-wrapper"
+    [class.cursor]="enterIconCursor"
+    [class.char-cursor]="enterIconCursor"
+  >
+    <i
+      class="ms-1 text-body-tertiary bi bi-arrow-return-left"
+      [class.enter-icon-active]="segmentPassed"
+    ></i>
+  </span>
+}
