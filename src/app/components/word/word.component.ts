@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { GameStateService } from '../../services/game-state.service';
 import { MathComponent } from '../math/math.component';
 import { ArticleWord } from '../../models/article.model';
@@ -7,7 +7,8 @@ import { ArticleWord } from '../../models/article.model';
   selector: 'app-word',
   imports: [MathComponent],
   templateUrl: './word.component.html',
-  styleUrl: './word.component.css'
+  styleUrl: './word.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WordComponent {
   word = input.required<ArticleWord>();
