@@ -183,44 +183,5 @@ export class GameStateService {
       }
     }
   }
-
-  isCursorPos(segmentIdx: number, wordIdx: number, charIdx: number): Signal<boolean> {
-    return computed(() => {
-      const currentSegment = this.currentSegmentIndex();
-      const currentWord = this.currentWordIndex();
-      const currentChar = this.currentCharIndex();
-
-      if (!(currentSegment === segmentIdx && currentWord === wordIdx)) {
-        return false;
-      }
-      return currentChar === charIdx;
-    });
-  }
-
-  isSpaceCursorPos(segmentIdx: number, wordIdx: number): Signal<boolean> {
-    return computed(() => {
-      const currentSegment = this.currentSegmentIndex();
-      const currentWord = this.currentWordIndex();
-      const currentChar = this.currentCharIndex();
-
-      const targetWordLength = this.getWordLength(segmentIdx, wordIdx);
-
-      return (
-        currentSegment === segmentIdx &&
-        currentWord === wordIdx &&
-        currentChar === targetWordLength
-      );
-    });
-  }
-
-  getWordLength(segmentIdx: number, wordIdx: number): number {
-    const segment = this.article().segments[segmentIdx];
-    const word = segment?.body[wordIdx];
-
-    if (word?.word) {
-      return word.word.length;
-    }
-    return (word?.math) ? 1 : 0;
-  }
   // TODO add stats like wpm etc here
 }

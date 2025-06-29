@@ -1,7 +1,7 @@
 .word {
   display: inline-block;
   white-space: nowrap;
-  /* margin-right: 0.3em; */
+  margin-right: 0.3em;
 }
 
 .word-header {
@@ -21,71 +21,14 @@
   margin-top: 1rem;
 }
 
- /* Cursor Styling */
-
-.cursor {
-  background-color: rgba(0, 123, 255, 0.2);
-  animation: blink-bg 1s infinite;
-}
-
 .word > span {
-  position: relative;
   display: inline-block;
-  vertical-align: bottom;
-  height: 1em;
-}
-
-.cursor {
-  background-color: rgba(0, 123, 255, 0.2);
-  animation: blink-bg 1s infinite;
-}
-
-.char-cursor::before {
-  content: '';
-  width: 3px;
-  height: 1em;
-  background-color: var(--bs-body-color);
-  position: absolute;
-  animation: blink-cursor 1s infinite;
-  z-index: 1;
-}
-
-.space-cursor-slot {
-  display: inline-block;
-  width: 0.3em;
-  vertical-align: baseline;
-}
-
-.space-cursor-slot.char-cursor::before {
-  content: '';
-  display: inline-block;
-  width: 3px;
-  height: 1em;
-  background-color: var(--bs-body-color);
-  animation: blink-cursor 1s infinite;
-  z-index: 1;
-}
-
-.space-cursor-slot.cursor {
-  background-color: rgba(0, 123, 255, 0.2);
-  animation: blink-bg 1s infinite;
-}
-
-@keyframes blink-bg {
-  from, to { background-color: transparent; }
-  50% { background-color: rgba(0, 123, 255, 0.2); }
-}
-
-@keyframes blink-cursor {
-  from, to { opacity: 0; }
-  50% { opacity: 1; }
 }
 
 .icon-wrapper {
   display: inline-block;
   vertical-align: bottom;
   height: 1em;
-  transform: translateY(3px);
 }
 
 .enter-icon-active {

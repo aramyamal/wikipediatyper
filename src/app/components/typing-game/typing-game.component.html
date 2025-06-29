@@ -65,7 +65,6 @@ NOTE: this version of the app is under development, the current version is only 
             <span
               class="word fs-2 text-success"
               [class.text-body]="this.gameState.isCorrectLetter(sIndex, 0, 0)"
-              [class.cursor]="this.gameState.isCursorPos(sIndex, 0, 0)()"
             >
               <app-math [latex]="segment.body[0].math?.latex" [inline]="false"></app-math>
             </span>
