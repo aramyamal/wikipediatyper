@@ -26,6 +26,27 @@ export class GameStateService {
     this.userInput.setValue("");
   }
 
+  private isWordCorrect(segmentIdx: number, wordIdx: number): boolean {
+    const targetWordObject = this.article().segments[segmentIdx]?.body[wordIdx];
+    const userTypedWord = this.userArticle()[segmentIdx]?.[wordIdx] || '';
+
+    if (!targetWordObject || !targetWordObject.word) {
+      return false;
+    }
+
+    if (targetWordObject.math) {
+      return true;
+    }
+
+    for (const [index, quanta] of targetWordObject.word.entries()) {
+      if (!quanta.anyKey && quanta.value != userTypedWord[index]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   isCorrectLetter(segmentIdx: number, wordIdx: number, charIdx: number): boolean | undefined {
     const currentSegment = this.currentSegmentIndex();
     if (segmentIdx > currentSegment) {
@@ -115,14 +136,13 @@ export class GameStateService {
 
   onKeyDown(event: KeyboardEvent) {
     const currentWordValue = this.userInput.value ?? "";
+    const currentSegIdx = this.currentSegmentIndex();
+    const currentWordIdx = this.currentWordIndex();
 
     // handle spaces
     if (event.key === " ") {
       // prevent adding empty words
       if (currentWordValue.trim().length > 0) {
-        const currentSegIdx = this.currentSegmentIndex();
-        const currentWordIdx = this.currentWordIndex();
-
         this.userArticle.update(prevUserArticle => {
           const newUserArticle = [...prevUserArticle];
           // ensure segment array exists and copy it
@@ -132,7 +152,7 @@ export class GameStateService {
           return newUserArticle;
         });
 
-        this.currentWordIndex.set(this.currentWordIndex() + 1); // move to the next word
+        this.currentWordIndex.set(currentWordIdx + 1); // move to the next word
         this.currentCharIndex.set(0); // reset char index for the new word
         this.userInput.setValue("");
         event.preventDefault();
@@ -141,32 +161,42 @@ export class GameStateService {
       }
     } else if (event.key === "Enter") {
       // complete current word and move to next segment
-      const currentSegIdx = this.currentSegmentIndex();
-      const currentWordIdx = this.currentWordIndex();
-
       this.userArticle.update(prevUserArticle => {
-        const newUserArticle = [...prevUserArticle];
-        newUserArticle[currentSegIdx] = [...(newUserArticle[currentSegIdx] || [])];
-        newUserArticle[currentSegIdx][currentWordIdx] = currentWordValue.trim();
+        prevUserArticle[currentSegIdx] = [...(prevUserArticle[currentSegIdx] || [])];
+        prevUserArticle[currentSegIdx][currentWordIdx] = currentWordValue.trim();
 
         // prepare for the next segment: add a new empty segment array
-        newUserArticle.push([]);
-        return newUserArticle;
+        prevUserArticle.push([]);
+        return prevUserArticle;
       });
 
-      this.currentSegmentIndex.set(this.currentSegmentIndex() + 1);
+      this.currentSegmentIndex.set(currentSegIdx + 1);
       this.currentWordIndex.set(0);
       this.currentCharIndex.set(0);
       this.userInput.setValue("");
       event.preventDefault(); // prevent default enter key behavior
 
     } else if (event.key === "Backspace") {
-      if (event.ctrlKey) {
-        // handle ctrl + backspace (delete current word)
-        this.userInput.setValue("");
-        this.currentCharIndex.set(0);
+      // if nothing on current input and previous word had an error
+      if (currentWordValue.length === 0
+        && currentWordIdx != 0
+        && !this.isWordCorrect(currentSegIdx, currentWordIdx - 1)
+      ) {
+        // delete current empty word and go back to previous
         event.preventDefault();
-      } else {
+        this.currentWordIndex.update(prevIndex => prevIndex - 1);
+        if (event.ctrlKey || event.metaKey) { // handle ctrl/cmd backspace
+          this.userInput.setValue("");
+          this.currentCharIndex.set(0);
+        } else {
+          const wordFromUserArticle = this.userArticle()
+            .at(currentSegIdx)?.at(currentWordIdx - 1) || '';
+          this.userInput.setValue(wordFromUserArticle);
+          this.currentCharIndex.set(wordFromUserArticle.length);
+        }
+
+      }
+      else {
         // handle standard backspace (delete last character)
         this.currentCharIndex.set(Math.max(0, currentWordValue.length - 1));
       }
