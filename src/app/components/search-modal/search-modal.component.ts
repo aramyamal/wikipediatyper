@@ -4,7 +4,7 @@ import {
   viewChild,
   ElementRef,
   signal,
-  inject
+  inject, OnDestroy
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Modal } from 'bootstrap';
@@ -19,7 +19,10 @@ import {
   startWith,
   switchMap,
   map,
-  finalize
+  finalize,
+  Subject,
+  fromEvent,
+  takeUntil
 } from 'rxjs';
 import {
   getEmptyWikiResponse,
@@ -36,7 +39,7 @@ import { GameStateService } from '../../services/game-state.service';
   templateUrl: './search-modal.component.html',
   styleUrl: './search-modal.component.css'
 })
-export class SearchModalComponent implements AfterViewInit {
+export class SearchModalComponent implements AfterViewInit, OnDestroy {
   searchLang = new FormControl("en");
   loading = signal(false);
   results = signal<WikiResult[]>([]);
@@ -101,13 +104,30 @@ export class SearchModalComponent implements AfterViewInit {
   }
 
   modalElement = viewChild<ElementRef>("searchModelRef");
+  searchInput = viewChild<ElementRef>("searchInput");
   private searchModal!: Modal;
+  private destroy$ = new Subject<void>();
 
   ngAfterViewInit() {
     const element = this.modalElement();
     if (element) {
       this.searchModal = new Modal(element.nativeElement);
+
+      fromEvent(element.nativeElement, 'shown.bs.modal')
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          const input = this.searchInput();
+          if (input) {
+            input.nativeElement.focus();
+            input.nativeElement.select();
+          }
+        });
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   show() {
