@@ -15,4 +15,8 @@ export class TypingGameComponent {
   protected gameState = inject(GameStateService);
 
   userInput = this.gameState.userInput;
+
+  jsonify(input: Object): string {
+    return JSON.stringify(input);
+  }
 }

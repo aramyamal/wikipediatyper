@@ -4,8 +4,8 @@
   [formControl]="userInput"
   (keydown)="this.gameState.onKeyDown($event)"
 >
-NOTE: this version of the app is under development, the current version is only for testing and lacks features to be a playable game.<br>
-{{this.gameState.userArticle()}}
+<p class="font-monospace text-break text-note">NOTE: this app is under development. The current version is only for testing purposes and lacks features to be usable.<br>
+{{jsonify(this.gameState.userArticle())}}</p>
 
 @if (this.gameState.article(); as art) {
   <cdk-virtual-scroll-viewport itemSize="50" class="viewport">
