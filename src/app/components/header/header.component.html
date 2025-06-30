@@ -6,8 +6,14 @@
       </div>
       <div class="col-md-6 col-xl-5 col-xxl-4 mx-auto p-0">
         <div class="font-serif bg-secondary-subtle rounded-3 px-3 py-2 d-flex align-items-center">
-          <button type="button" class="btn btn-text text-start p-0 pe-auto w-100" (click)="onSearchClick()" title="Search for article">
-            {{gameState.articleTitle()}}
+          <button
+            type="button"
+            class="btn btn-text text-start p-0 pe-auto w-100 d-flex align-items-center"
+            (click)="onSearchClick()"
+            title="Search for article"
+          >
+            <span class="me-auto">{{gameState.articleTitle()}}</span>
+            <span class="keymap-button rounded-1 mx-1 px-1 border border-secondary border-1 font-monospace">CTRL + K</span>
           </button>
           <span class="text-secondary">│</span>
           <button type="button" class="btn btn-icon p-0 mx-2" aria-label="Search for article" (click)="onSearchClick()"

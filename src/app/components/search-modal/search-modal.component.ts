@@ -4,7 +4,8 @@ import {
   viewChild,
   ElementRef,
   signal,
-  inject, OnDestroy
+  inject, OnDestroy,
+  HostListener
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Modal } from 'bootstrap';
@@ -56,6 +57,8 @@ export class SearchModalComponent implements AfterViewInit, OnDestroy {
   protected searchTerm = this.gameState.searchTerm;
   private router = inject(Router);
   private wikiApi = inject(WikiApiService);
+
+  isOpen = signal(false);
 
   constructor() {
 
@@ -113,9 +116,16 @@ export class SearchModalComponent implements AfterViewInit, OnDestroy {
     if (element) {
       this.searchModal = new Modal(element.nativeElement);
 
+      fromEvent(element.nativeElement, 'hidden.bs.modal')
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          this.isOpen.set(false);
+        })
+
       fromEvent(element.nativeElement, 'shown.bs.modal')
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => {
+          this.isOpen.set(true);
           const input = this.searchInput();
           if (input) {
             input.nativeElement.focus();
@@ -141,6 +151,26 @@ export class SearchModalComponent implements AfterViewInit, OnDestroy {
     this.gameState.articleTitle.set(title);
     this.searchTerm.setValue(title);
     this.searchModal.hide();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (!this.isOpen()) {
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      const activeElement = document.activeElement;
+      if (this.searchInput()?.nativeElement === activeElement) {
+        if (this.results().length > 0) {
+          this.openArticle(this.results()[0].title);
+        }
+        event.preventDefault(); // prevent default browser behavior
+      }
+    } else if (event.key === 'Escape') {
+      this.searchModal.hide();
+      event.preventDefault(); // prevent default Escape behavior
+    }
   }
 }
 

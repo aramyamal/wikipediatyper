@@ -29,3 +29,7 @@
   box-shadow: none;
   border: none;
 }
+
+.keymap-button {
+  font-size: 0.6rem;
+}
