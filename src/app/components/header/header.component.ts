@@ -29,6 +29,10 @@ export class HeaderComponent {
     window.open('https://github.com/aramyamal/wikipediatyper', '_blank', 'noopener');
   }
 
+  openSponsor() {
+    window.open('https://buymeacoffee.com/aramyamal', '_blank', 'noopener');
+  }
+
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     // check for ctrl + k (windows/linux) or cmd + k (macOS)
