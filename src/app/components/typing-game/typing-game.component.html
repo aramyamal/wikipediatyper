@@ -4,6 +4,8 @@
   type="text"
   [formControl]="userInput"
   (keydown)="this.gameState.onKeyDown($event)"
+  (focus)="onInputFocus()"
+  (blur)="onInputBlur()"
   class="mt-1 w-100 visually-hidden"
 >
 
@@ -12,10 +14,11 @@
   class="typing-cursor"
   [style.left.px]="cursorPosition().x"
   [style.top.px]="cursorPosition().y"
+  [class.faded]="!inputFocused"
 ></div>
 
 @if (this.gameState.article(); as art) {
-  <div class="viewport-container" (click)="this.focus()">
+  <div class="viewport-container" (click)="this.focus()" [class.faded]="!inputFocused">
   <cdk-virtual-scroll-viewport scrollWindow itemSize="1" class="viewport w-100">
   <h1 class="display-1 mt-4 font-serif">{{ art.title }}</h1>
       <div *cdkVirtualFor="let segment of art.segments; trackBy: trackBySegment; let sIndex = index">

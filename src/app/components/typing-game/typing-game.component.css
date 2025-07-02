@@ -41,3 +41,7 @@
   transition: all 0.15s ease-out;
 }
 
+.faded {
+  filter: blur(3px);
+  transition: filter .2s ease;
+}

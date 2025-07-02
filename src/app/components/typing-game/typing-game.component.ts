@@ -18,6 +18,7 @@ export class TypingGameComponent {
   userInputField = viewChild<ElementRef>("userInputField");
   cursor = viewChild<ElementRef>("cursor");
   cursorPosition = signal({ x: 0, y: 0 });
+  inputFocused = false;
 
   constructor() {
     effect(() => {
@@ -29,6 +30,13 @@ export class TypingGameComponent {
         setTimeout(() => this.focus(), 150);
       }
     });
+  }
+
+  onInputFocus() {
+    this.inputFocused = true;
+  }
+  onInputBlur() {
+    setTimeout(() => this.inputFocused = false, 0);
   }
 
   focus() {
