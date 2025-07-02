@@ -33,12 +33,16 @@
 .typing-cursor {
   position: absolute;
   width: 3px;
-  height: 2.5rem;
+  height: 2.7rem;
   background-color: var(--bs-body-color);
   z-index: 1000;
   pointer-events: none;
   transform: translateX(-1px);
   transition: all 0.15s ease-out;
+}
+
+.big-cursor {
+  height: 4rem;
 }
 
 .faded {

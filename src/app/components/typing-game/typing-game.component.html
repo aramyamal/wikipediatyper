@@ -14,6 +14,7 @@
   class="typing-cursor"
   [style.left.px]="cursorPosition().x"
   [style.top.px]="cursorPosition().y"
+  [class.big-cursor]="cursorPosition().isHeader"
   [class.faded]="!inputFocused"
 ></div>
 

@@ -17,7 +17,7 @@ export class TypingGameComponent {
   userInput = this.gameState.userInput;
   userInputField = viewChild<ElementRef>("userInputField");
   cursor = viewChild<ElementRef>("cursor");
-  cursorPosition = signal({ x: 0, y: 0 });
+  cursorPosition = signal({ x: 0, y: 0, isHeader: false });
   inputFocused = false;
 
   constructor() {
@@ -96,9 +96,12 @@ export class TypingGameComponent {
       }
     }
 
+    const isHeader = currentSegment.type.startsWith("header");
+
     const newPosition = {
       x: xPosition,
-      y: rect.top + scrollTop
+      y: rect.top + scrollTop,
+      isHeader
     };
 
     this.cursorPosition.set(newPosition);
