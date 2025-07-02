@@ -27,7 +27,7 @@
 
 .icon-wrapper {
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: baseline;
   height: 1em;
 }
 
