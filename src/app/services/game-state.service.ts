@@ -18,6 +18,7 @@ export class GameStateService {
 
   userArticle: WritableSignal<UserArticle> = signal([[]]);
 
+  modalIsOpen = signal(false);
   reset() {
     this.userArticle.set([[]]);
     this.currentSegmentIndex.set(0);

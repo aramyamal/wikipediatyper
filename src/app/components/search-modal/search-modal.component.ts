@@ -58,8 +58,6 @@ export class SearchModalComponent implements AfterViewInit, OnDestroy {
   private router = inject(Router);
   private wikiApi = inject(WikiApiService);
 
-  isOpen = signal(false);
-
   constructor() {
 
     const search$ = this.searchTerm.valueChanges.pipe(
@@ -86,14 +84,14 @@ export class SearchModalComponent implements AfterViewInit, OnDestroy {
       filter(([query, lang]) => !!query && query.length >= 3 && !!lang),
       // use switchMap to cancel unfinished requests when new ones come
       switchMap(([query, lang]) => {
-        this.loading.set(true); // Set loading state
+        this.loading.set(true);
         return this.wikiApi.search(lang ? lang : "", query ? query : "").pipe(
           catchError(() => {
-            this.loading.set(false); // Reset loading state on error
-            return of(getEmptyWikiResponse()); // Return an empty response
+            this.loading.set(false);
+            return of(getEmptyWikiResponse());
           }),
           finalize(() => {
-            this.loading.set(false); // Reset loading state after completion
+            this.loading.set(false);
           })
         );
       }),
@@ -119,13 +117,13 @@ export class SearchModalComponent implements AfterViewInit, OnDestroy {
       fromEvent(element.nativeElement, 'hidden.bs.modal')
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => {
-          this.isOpen.set(false);
+          this.gameState.modalIsOpen.set(false);
         })
 
       fromEvent(element.nativeElement, 'shown.bs.modal')
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => {
-          this.isOpen.set(true);
+          this.gameState.modalIsOpen.set(true);
           const input = this.searchInput();
           if (input) {
             input.nativeElement.focus();
@@ -155,7 +153,7 @@ export class SearchModalComponent implements AfterViewInit, OnDestroy {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (!this.isOpen()) {
+    if (!this.gameState.modalIsOpen()) {
       return;
     }
 
