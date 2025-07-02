@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, viewChild, OnInit, signal, effect } from '@angular/core';
 import { GameStateService } from '../../services/game-state.service';
 import { MathComponent } from '../math/math.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,8 +15,88 @@ export class TypingGameComponent {
   protected gameState = inject(GameStateService);
 
   userInput = this.gameState.userInput;
+  userInputField = viewChild<ElementRef>("userInputField");
+  cursor = viewChild<ElementRef>("cursor");
+  cursorPosition = signal({ x: 0, y: 0 });
 
-  jsonify(input: Object): string {
-    return JSON.stringify(input);
+  constructor() {
+    effect(() => {
+      this.focus();
+    });
+
+    effect(() => {
+      if (!this.gameState.modalIsOpen()) {
+        setTimeout(() => this.focus(), 150);
+      }
+    });
+  }
+
+  focus() {
+    const userInputField = this.userInputField()
+    if (userInputField) {
+      userInputField.nativeElement.focus();
+    }
+    this.updateCursorPosition();
+  }
+
+  private updateCursorPosition() {
+    const elementId = this.gameState.getCurrentLetterElementId();
+
+    if (!elementId) {
+      return;
+    }
+
+    const targetElement = document.getElementById(elementId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        // behavior: 'smooth',
+        block: 'center',
+      });
+
+      this.positionCursorAtElement(targetElement);
+    }
+  }
+
+  private positionCursorAtElement(element: HTMLElement) {
+    const rect = element.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+    const pos = this.gameState.currentPosition();
+    const currentSegment = this.gameState.article().segments[pos.sIndex];
+    const currentWord = currentSegment?.body[pos.wIndex];
+
+    let xPosition = rect.left + scrollLeft;
+
+    if (currentWord?.word) {
+      const wordLength = currentWord.word.length;
+
+      if (pos.qIndex >= wordLength) {
+        xPosition = rect.right + scrollLeft;
+
+        const excessCount = pos.qIndex - wordLength;
+        if (excessCount > 0) {
+          const charWidth = rect.width;
+          const excessOffset = charWidth * excessCount;
+          xPosition += excessOffset;
+        }
+      } else if (pos.qIndex > 0) {
+        const charWidth = rect.width;
+        const charOffset = charWidth * (pos.qIndex - Math.min(pos.qIndex, wordLength - 1));
+        xPosition += charOffset;
+      }
+    }
+
+    const newPosition = {
+      x: xPosition,
+      y: rect.top + scrollTop
+    };
+
+    this.cursorPosition.set(newPosition);
+  }
+
+  trackBySegment(index: number, segment: any): any {
+    return segment.id || index;
   }
 }

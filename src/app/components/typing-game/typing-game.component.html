@@ -1,16 +1,24 @@
 <input
+  #userInputField
   id="userInput"
   type="text"
   [formControl]="userInput"
   (keydown)="this.gameState.onKeyDown($event)"
+  class="mt-1 w-100 visually-hidden"
 >
-<p class="font-monospace text-break text-note">NOTE: this app is under development. The current version is only for testing purposes and lacks features to be usable.<br>
-{{jsonify(this.gameState.userArticle())}}</p>
+
+<div
+  #cursor
+  class="typing-cursor"
+  [style.left.px]="cursorPosition().x"
+  [style.top.px]="cursorPosition().y"
+></div>
 
 @if (this.gameState.article(); as art) {
-  <cdk-virtual-scroll-viewport itemSize="50" class="viewport">
+  <div class="viewport-container" (click)="this.focus()">
+  <cdk-virtual-scroll-viewport scrollWindow itemSize="1" class="viewport w-100">
   <h1 class="display-1 mt-4 font-serif">{{ art.title }}</h1>
-      @for (segment of art.segments; track segment; let sIndex = $index) {
+      <div *cdkVirtualFor="let segment of art.segments; trackBy: trackBySegment; let sIndex = index">
         @switch (true) {
           @case (segment.type === 'text') {
             <p class="display-6 mb-3 font-serif">
@@ -71,8 +79,9 @@
           </div>
           }
         }
-      }
+      </div>
   </cdk-virtual-scroll-viewport>
+  </div>
 } @else {
   <p class="font-serif fs-5">Loading article...</p>
 }

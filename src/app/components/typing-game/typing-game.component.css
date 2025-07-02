@@ -4,5 +4,40 @@
 }
 
 .viewport {
-  height: 90vh;
+  cursor: pointer;
+  height: 29.61rem;
+  overflow: hidden !important;
+   -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
 }
+
+.viewport-container {
+  display: grid;
+  place-items: center;
+  min-height: 90vh;
+  user-select: none;;
+}
+
+.typing-cursor {
+  position: absolute;
+  width: 3px;
+  height: 2.5rem;
+  background-color: var(--bs-body-color);
+  z-index: 1000;
+  pointer-events: none;
+  transform: translateX(-1px);
+  transition: all 0.15s ease-out;
+}
+

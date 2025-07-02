@@ -2,6 +2,7 @@ import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/c
 import { FormControl } from '@angular/forms';
 import { Article } from '../models/article.model';
 import { UserArticle } from '../models/user-input.model';
+import { CursorPosition } from '../models/cursor-position';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +20,35 @@ export class GameStateService {
   userArticle: WritableSignal<UserArticle> = signal([[]]);
 
   modalIsOpen = signal(false);
+
+  currentPosition = computed<CursorPosition>(() => ({
+    sIndex: this.currentSegmentIndex(),
+    wIndex: this.currentWordIndex(),
+    qIndex: this.currentCharIndex()
+  }));
+
   reset() {
     this.userArticle.set([[]]);
     this.currentSegmentIndex.set(0);
     this.currentWordIndex.set(0);
     this.currentCharIndex.set(0);
     this.userInput.setValue("");
+  }
+
+  getCurrentLetterElementId(): string | null {
+    const pos = this.currentPosition();
+    const currentSegment = this.article().segments[pos.sIndex];
+    const currentWord = currentSegment?.body[pos.wIndex];
+
+    if (!currentWord || !currentWord.word) {
+      return null;
+    }
+
+    // if we're at or past the end of the word, use the last character
+    const maxCharIndex = currentWord.word.length - 1;
+    const actualCharIndex = Math.min(pos.qIndex, maxCharIndex);
+
+    return `q-${pos.sIndex}-${pos.wIndex}-${actualCharIndex}`;
   }
 
   private isWordCorrect(segmentIdx: number, wordIdx: number): boolean {
@@ -133,6 +157,22 @@ export class GameStateService {
         return "";
       }
     });
+  }
+
+  getExcessCharCount(sIndex: number, wIndex: number): number {
+    const pos = this.currentPosition();
+    if (pos.sIndex !== sIndex || pos.wIndex !== wIndex) {
+      return 0;
+    }
+
+    const currentSegment = this.article().segments[sIndex];
+    const currentWord = currentSegment?.body[wIndex];
+
+    if (!currentWord || !currentWord.word) {
+      return 0;
+    }
+
+    return Math.max(0, pos.qIndex - currentWord.word.length);
   }
 
   onKeyDown(event: KeyboardEvent) {

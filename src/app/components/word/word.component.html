@@ -3,6 +3,7 @@
   @for (q of word().word; track q; let qIndex = $index) {
     @let correct = this.gameState.isCorrectLetter(sIndex(), wIndex(), qIndex);
     <span
+      [id]="'q-' + sIndex() + '-' + wIndex() + '-' + qIndex"
       [class.text-body]="correct === true"
       [class.text-danger]="correct === false"
     >
@@ -11,8 +12,15 @@
   }
 
   @let excess = this.gameState.getExcess(sIndex(), wIndex())();
-  @if (excess) {
-    <span class="text-danger">{{ this.gameState.getExcess(sIndex(), wIndex())() }}</span>
+   @if (excess) {
+    @for (excessChar of excess; track excessChar; let excessIndex = $index) {
+      <span
+        [id]="'excess-' + sIndex() + '-' + wIndex() + '-' + excessIndex"
+        class="text-danger"
+      >
+        {{ excessChar }}
+      </span>
+    }
   }
   </span>
 }
