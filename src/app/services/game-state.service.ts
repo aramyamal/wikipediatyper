@@ -63,6 +63,10 @@ export class GameStateService {
       return true;
     }
 
+    if (targetWordObject.word.length < userTypedWord.length) {
+      return false;
+    }
+
     for (const [index, quanta] of targetWordObject.word.entries()) {
       if (!quanta.anyKey && quanta.value != userTypedWord[index]) {
         return false;
