@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, viewChild, OnInit, signal, effect } from '@angular/core';
+import { Component, ElementRef, inject, viewChild, signal, effect, OnInit } from '@angular/core';
 import { GameStateService } from '../../services/game-state.service';
 import { MathComponent } from '../math/math.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { WordComponent } from '../word/word.component';
   templateUrl: './typing-game.component.html',
   styleUrl: './typing-game.component.css'
 })
-export class TypingGameComponent {
+export class TypingGameComponent implements OnInit {
   protected gameState = inject(GameStateService);
 
   userInput = this.gameState.userInput;
@@ -19,6 +19,8 @@ export class TypingGameComponent {
   cursor = viewChild<ElementRef>("cursor");
   cursorPosition = signal({ x: 0, y: 0, isHeader: false });
   inputFocused = false;
+
+  private elementCache = new Map<string, HTMLElement>();
 
   constructor() {
     effect(() => {
@@ -29,6 +31,14 @@ export class TypingGameComponent {
       if (!this.gameState.modalIsOpen()) {
         setTimeout(() => this.focus(), 150);
       }
+    });
+  }
+
+  ngOnInit() {
+    // Clear cache when article changes
+    effect(() => {
+      this.gameState.article();
+      this.elementCache.clear();
     });
   }
 
@@ -49,17 +59,21 @@ export class TypingGameComponent {
 
   private updateCursorPosition() {
     const elementId = this.gameState.getCurrentLetterElementId();
+    if (!elementId) return;
 
-    if (!elementId) {
-      return;
+    let targetElement: HTMLElement | null | undefined =
+      this.elementCache.get(elementId);
+    if (!targetElement) {
+      targetElement = document.getElementById(elementId);
+      if (targetElement) {
+        this.elementCache.set(elementId, targetElement);
+      }
     }
-
-    const targetElement = document.getElementById(elementId);
 
     if (targetElement) {
       targetElement.scrollIntoView({
-        // behavior: 'smooth',
         block: 'center',
+        inline: 'nearest'
       });
 
       this.positionCursorAtElement(targetElement);
