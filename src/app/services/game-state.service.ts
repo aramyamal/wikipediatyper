@@ -184,6 +184,19 @@ export class GameStateService {
     const currentWordIdx = this.currentWordIndex();
 
     if (event.key === "Backspace" && (event.ctrlKey || event.metaKey)) {
+      // if nothing on current input and previous word had an error
+      if (currentWordValue.length === 0
+        && currentWordIdx != 0
+        && !this.isWordCorrect(currentSegIdx, currentWordIdx - 1)
+      ) {
+        // delete current empty word and go back to previous
+        event.preventDefault();
+        this.currentWordIndex.update(prevIndex => prevIndex - 1);
+        const wordFromUserArticle = this.userArticle()
+          .at(currentSegIdx)?.at(currentWordIdx - 1) || '';
+        this.userInput.setValue(wordFromUserArticle);
+        this.currentCharIndex.set(wordFromUserArticle.length);
+      }
       event.preventDefault();
       this.userInput.setValue("");
       this.currentCharIndex.set(0);
