@@ -183,6 +183,10 @@ export class GameStateService {
     const currentSegIdx = this.currentSegmentIndex();
     const currentWordIdx = this.currentWordIndex();
 
+    const article = this.article();
+    const currentSegment = article.segments[currentSegIdx];
+    const isLastWordInSegment = currentSegment && currentWordIdx === currentSegment.body.length - 1;
+
     if (event.key === "Backspace" && (event.ctrlKey || event.metaKey)) {
       // if nothing on current input and previous word had an error
       if (currentWordValue.length === 0
@@ -205,6 +209,11 @@ export class GameStateService {
 
     // handle spaces
     if (event.key === " ") {
+      if (isLastWordInSegment) {
+        event.preventDefault();
+        return; // do nothing on last word of segment
+      }
+
       // prevent adding empty words
       if (currentWordValue.trim().length > 0) {
         this.userArticle.update(prevUserArticle => {
@@ -224,6 +233,12 @@ export class GameStateService {
         event.preventDefault();
       }
     } else if (event.key === "Enter") {
+      // only allow enter on the last word of the segment
+      if (!isLastWordInSegment) {
+        event.preventDefault();
+        return;
+      }
+
       // complete current word and move to next segment
       this.userArticle.update(prevUserArticle => {
         prevUserArticle[currentSegIdx] = [...(prevUserArticle[currentSegIdx] || [])];

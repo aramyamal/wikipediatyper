@@ -20,7 +20,7 @@
 
 @if (this.gameState.article(); as art) {
   <div class="viewport-container" (click)="this.focus()" [class.faded]="!inputFocused">
-  <cdk-virtual-scroll-viewport scrollWindow itemSize="300" class="viewport w-100">
+  <cdk-virtual-scroll-viewport #scrollViewport itemSize="400" class="viewport w-100">
   <h1 class="display-1 mt-4 font-serif">{{ art.title }}</h1>
       <div *cdkVirtualFor="let segment of art.segments; trackBy: trackBySegment; let sIndex = index">
         @switch (true) {

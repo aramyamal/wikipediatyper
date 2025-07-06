@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, viewChild, signal, effect } from '@angul
 import { GameStateService } from '../../services/game-state.service';
 import { MathComponent } from '../math/math.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { WordComponent } from '../word/word.component';
 
 @Component({
@@ -16,6 +16,7 @@ export class TypingGameComponent {
 
   userInput = this.gameState.userInput;
   userInputField = viewChild<ElementRef>("userInputField");
+  scrollViewport = viewChild<CdkVirtualScrollViewport>("scrollViewport");
   cursor = viewChild<ElementRef>("cursor");
   cursorPosition = signal({ x: 0, y: 0, isHeader: false });
   inputFocused = false;
