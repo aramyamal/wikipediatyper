@@ -11,7 +11,7 @@
     </span>
   }
 
-  @let excess = this.gameState.getExcess(sIndex(), wIndex())();
+  @let excess = this.gameState.getExcess(sIndex(), wIndex());
    @if (excess) {
     @for (excessChar of excess; track $index; let excessIndex = $index) {
       <span

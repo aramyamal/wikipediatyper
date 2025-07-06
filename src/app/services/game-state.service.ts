@@ -126,41 +126,33 @@ export class GameStateService {
     }
   }
 
-  getExcess(segmentIdx: number, wordIdx: number): Signal<string> {
-    return computed(() => {
-      const targetWordObject = this.article().segments[segmentIdx]?.body[wordIdx];
+  getExcess(segmentIdx: number, wordIdx: number): string {
+    const targetWordObject = this.article().segments[segmentIdx]?.body[wordIdx];
 
-      if (!targetWordObject || !targetWordObject.word) {
-        return "";
-      }
+    if (!targetWordObject?.word) {
+      return "";
+    }
 
-      const targetWordLength = targetWordObject.word.length;
+    const targetWordLength = targetWordObject.word.length;
+    const currentSegment = this.currentSegmentIndex();
+    const currentWord = this.currentWordIndex();
 
-      let wordToCheck: string;
+    let wordToCheck: string;
 
-      const currentSegment = this.currentSegmentIndex();
-      const currentWord = this.currentWordIndex();
+    if (segmentIdx === currentSegment && wordIdx === currentWord) {
+      wordToCheck = this.userInput.value ?? "";
+    } else if (
+      segmentIdx < currentSegment ||
+      (segmentIdx === currentSegment && wordIdx < currentWord)
+    ) {
+      wordToCheck = this.userArticle()[segmentIdx]?.[wordIdx] ?? "";
+    } else {
+      return "";
+    }
 
-      if (segmentIdx === currentSegment && wordIdx === currentWord) {
-        wordToCheck = this.userInput.value ?? "";
-      } else if (
-        segmentIdx < currentSegment ||
-        (segmentIdx === currentSegment && wordIdx < currentWord)
-      ) {
-        // for words that have already been completed and stored in userArticle
-        wordToCheck = this.userArticle()[segmentIdx]?.[wordIdx] ?? "";
-      } else {
-        // for future words there is no excess
-        return "";
-      }
-
-      // check for excess based on the determined 'wordToCheck'
-      if (wordToCheck.length > targetWordLength) {
-        return wordToCheck.substring(targetWordLength);
-      } else {
-        return "";
-      }
-    });
+    return wordToCheck.length > targetWordLength
+      ? wordToCheck.substring(targetWordLength)
+      : "";
   }
 
   getExcessCharCount(sIndex: number, wIndex: number): number {
