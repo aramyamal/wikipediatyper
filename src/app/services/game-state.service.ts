@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Article } from '../models/article.model';
 import { UserArticle } from '../models/user-input.model';
 import { CursorPosition } from '../models/cursor-position';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class GameStateService {
   currentWordIndex = signal<number>(0);
   currentCharIndex = signal<number>(0);
   userInput = new FormControl("");
+  userInputSignal = toSignal(this.userInput.valueChanges, { initialValue: "" });
 
   userArticle: WritableSignal<UserArticle> = signal([[]]);
 

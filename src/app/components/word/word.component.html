@@ -1,9 +1,11 @@
-@if (word().word) {
+@let data = wordData();
+
+@if (data.word.word) {
   <span class="word text-body-tertiary">
-  @for (q of word().word; track q; let qIndex = $index) {
-    @let correct = this.gameState.isCorrectLetter(sIndex(), wIndex(), qIndex);
+  @for (q of data.word.word; track q; let qIndex = $index) {
+    @let correct = this.gameState.isCorrectLetter(data.sIndex, data.wIndex, qIndex);
     <span
-      [id]="'q-' + sIndex() + '-' + wIndex() + '-' + qIndex"
+      [id]="'q-' + data.sIndex + '-' + data.wIndex + '-' + qIndex"
       [class.text-body]="correct === true"
       [class.text-danger]="correct === false"
     >
@@ -11,11 +13,10 @@
     </span>
   }
 
-  @let excess = this.gameState.getExcess(sIndex(), wIndex());
-   @if (excess) {
-    @for (excessChar of excess; track $index; let excessIndex = $index) {
+  @if (data.excess) {
+    @for (excessChar of data.excess; track $index; let excessIndex = $index) {
       <span
-        [id]="'excess-' + sIndex() + '-' + wIndex() + '-' + excessIndex"
+        [id]="'excess-' + data.sIndex + '-' + data.wIndex + '-' + excessIndex"
         class="text-danger"
       >
         {{ excessChar }}
@@ -24,24 +25,22 @@
   }
   </span>
 }
-@if (word().math; as math) {
+
+@if (data.word.math; as math) {
   <span
     class="fs-2 text-success icon-wrapper"
     [class.word-no-space]="math.noSpace"
-    [class.text-body]="this.gameState.isCorrectLetter(sIndex(), wIndex(), 0)"
+    [class.text-body]="data.mathCorrect"
   >
-    <app-math [latex]="word().math?.latex" [inline]="true"></app-math>
+    <app-math [latex]="math.latex" [inline]="true"></app-math>
   </span>
 }
 
-@if (wIndex() === segmentBodyLength() - 1) {
-   @let segmentPassed = this.gameState.currentSegmentIndex() > sIndex();
-  <span
-    class="icon-wrapper"
-  >
+@if (data.isLastWord) {
+  <span class="icon-wrapper">
     <i
       class="ms-1 text-body-tertiary bi bi-arrow-return-left"
-      [class.enter-icon-active]="segmentPassed"
+      [class.enter-icon-active]="data.segmentPassed"
     ></i>
   </span>
 }
