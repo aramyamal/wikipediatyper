@@ -184,6 +184,13 @@ export class GameStateService {
     const currentSegIdx = this.currentSegmentIndex();
     const currentWordIdx = this.currentWordIndex();
 
+    if (event.key === "Backspace" && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault();
+      this.userInput.setValue("");
+      this.currentCharIndex.set(0);
+      return; // Exit early
+    }
+
     // handle spaces
     if (event.key === " ") {
       // prevent adding empty words
@@ -230,16 +237,10 @@ export class GameStateService {
         // delete current empty word and go back to previous
         event.preventDefault();
         this.currentWordIndex.update(prevIndex => prevIndex - 1);
-        if (event.ctrlKey || event.metaKey) { // handle ctrl/cmd backspace
-          this.userInput.setValue("");
-          this.currentCharIndex.set(0);
-        } else {
-          const wordFromUserArticle = this.userArticle()
-            .at(currentSegIdx)?.at(currentWordIdx - 1) || '';
-          this.userInput.setValue(wordFromUserArticle);
-          this.currentCharIndex.set(wordFromUserArticle.length);
-        }
-
+        const wordFromUserArticle = this.userArticle()
+          .at(currentSegIdx)?.at(currentWordIdx - 1) || '';
+        this.userInput.setValue(wordFromUserArticle);
+        this.currentCharIndex.set(wordFromUserArticle.length);
       }
       else {
         // handle standard backspace (delete last character)
