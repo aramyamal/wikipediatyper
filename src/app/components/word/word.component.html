@@ -13,7 +13,7 @@
 
   @let excess = this.gameState.getExcess(sIndex(), wIndex())();
    @if (excess) {
-    @for (excessChar of excess; track excessChar; let excessIndex = $index) {
+    @for (excessChar of excess; track $index; let excessIndex = $index) {
       <span
         [id]="'excess-' + sIndex() + '-' + wIndex() + '-' + excessIndex"
         class="text-danger"
