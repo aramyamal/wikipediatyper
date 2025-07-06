@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, viewChild, signal, effect, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, viewChild, signal, effect } from '@angular/core';
 import { GameStateService } from '../../services/game-state.service';
 import { MathComponent } from '../math/math.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { WordComponent } from '../word/word.component';
   templateUrl: './typing-game.component.html',
   styleUrl: './typing-game.component.css'
 })
-export class TypingGameComponent implements OnInit {
+export class TypingGameComponent {
   protected gameState = inject(GameStateService);
 
   userInput = this.gameState.userInput;
@@ -32,10 +32,8 @@ export class TypingGameComponent implements OnInit {
         setTimeout(() => this.focus(), 150);
       }
     });
-  }
 
-  ngOnInit() {
-    // Clear cache when article changes
+    // clear cache when article changes
     effect(() => {
       this.gameState.article();
       this.elementCache.clear();
