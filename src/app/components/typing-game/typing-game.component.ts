@@ -40,9 +40,9 @@ export class TypingGameComponent {
   }
 
   focus() {
-    const userInputField = this.userInputField()
-    if (userInputField) {
-      userInputField.nativeElement.focus();
+    const input = this.userInputField()?.nativeElement;
+    if (input) {
+      input.focus({ preventScroll: true });
     }
     this.updateCursorPosition();
   }
