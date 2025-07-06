@@ -38,6 +38,11 @@ export class GameStateService {
   }
 
   getCurrentLetterElementId(): string | null {
+    const article = this.article();
+    if (!article || !article.segments || article.segments.length === 0) {
+      return null;
+    }
+
     const pos = this.currentPosition();
     const currentSegment = this.article().segments[pos.sIndex];
     const currentWord = currentSegment?.body[pos.wIndex];
