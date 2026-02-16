@@ -1,5 +1,7 @@
 # Wikipediatyper
 
+Playable at https://wikipediatyper.com/
+
 ## Font licenses
 
 This project includes the following fonts:
